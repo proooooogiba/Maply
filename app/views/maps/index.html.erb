@@ -1,5 +1,4 @@
 <script type="text/javascript">
-let center = [55.81863845116168,37.87356624320199];
 ymaps.ready(init);
 
 let MyMap;
@@ -29,28 +28,44 @@ function init() {
 		result.geoObjects.get(0).properties.set({
             balloonContentBody: 'Мое местоположение'
         });
-		console.log(result.geoObjects.get(0).geometry.getCoordinates());
+		document.getElementById('latitude').value = result.geoObjects.get(0).geometry.getCoordinates()[0];
+        document.getElementById('longitude').value = result.geoObjects.get(0).geometry.getCoordinates()[1];
         myMap.geoObjects.add(result.geoObjects);
     });
 
 	myMap.copyrights.add('© Иван Погиба');
 }
 
-function add_points() {
-	ymaps.geoQuery([
-            {
-                type: 'Point',
-                coordinates: [55.73, 37.75]
-            },
-            {
-                type: 'Point',
-                coordinates: [55.10, 37.45]
-            },
-            {
-                type: 'Point',
-                coordinates: [55.25, 37.35]
-            }
-        ]).addToMap(myMap);
+function add_points(length) {
+    for(let i = 0; i < length; i++) {
+        latitude = document.getElementById('user-latitude-' + i).textContent;
+        longitude = document.getElementById('user-longitude-' + i).textContent;
+        email = document.getElementById('user-email-' + i).textContent;
+        console.log(latitude, longitude, email);
+        myMap.geoObjects.add(new ymaps.Placemark([parseFloat(latitude), parseFloat(longitude)], {
+            balloonContent: '<strong>' + email + '</strong>'
+        }, {
+            preset: 'islands#circleIcon',
+            iconColor: '#3caa3c'
+        }))
+    }
+}
+
+function get_location() {
+    let geolocation = ymaps.geolocation
+
+    geolocation.get({
+        provider: 'browser',
+        mapStateAutoApply: true
+    }).then(function (result) {
+        result.geoObjects.options.set('preset', 'islands#blueCircleIcon');
+		result.geoObjects.get(0).properties.set({
+            balloonContentBody: 'Мое местоположение'
+        });
+        document.getElementById('latitude').value = result.geoObjects.get(0).geometry.getCoordinates()[0];
+        document.getElementById('longitude').value = result.geoObjects.get(0).geometry.getCoordinates()[1];
+		console.log(result.geoObjects.get(0).geometry.getCoordinates()[1]);
+    });
 }
 
 </script>
@@ -60,7 +75,20 @@ function add_points() {
     </div>
 
     <div class="col-2" style="margin: 0; padding: 0;">
-		<button type="button" class="btn btn-primary" onclick="add_points()">Add</button>
-        
+		<%= form_with url: result_path do |f| %>
+            <%= f.label :latitude %>
+            <%= f.text_field :latitude, id: :latitude %>
+            <%= f.label :longitude %>
+            <%= f.text_field :longitude, id: :longitude  %>
+            <%= f.submit class: "btn btn-primary" %>
+        <%end%>
+        <button type="button" class="btn btn-primary" onclick="add_points(<%= User.all.count %>)">Show</button>
+    </div>
+    <div id="users" style="display: none;">
+        <% User.all.each_with_index do |user, index|%>
+        <p id="user-email-<%=index%>"><%= user.email %></p>
+        <p id="user-latitude-<%=index%>"><%= user.latitude%></p>
+        <p id="user-longitude-<%=index%>"><%= user.longitude%></p>
+        <%end%>
     </div>
   </div>
