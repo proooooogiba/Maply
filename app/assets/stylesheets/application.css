@@ -1,0 +1,55 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+/* html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+} */
+
+
+/* Единственный минус это противоречит условиям соглашения использования api */
+/* [class*="ymaps-2"][class*="-ground-pane"] {
+    filter: invert(100%);
+	-ms-filter: invert(0%);
+	-webkit-filter: invert(90%);
+	-moz-filter: invert(20%);
+	-o-filter: invert(0%);
+} */
+
+/* [class*="balloon__close-button"] {
+	opacity: 1;
+} */
+
+html, body, .container, .row {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.map {
+    width: 100%;
+    height: 100%;
+}
+
+/* .navigation {
+    float: right;
+    width: 15%;
+    height: 100%;
+    background-color: #af525261;
+} */
