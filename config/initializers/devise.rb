@@ -28,7 +28,11 @@ Devise.setup do |config|
   config.omniauth :google_oauth2, 
                   Rails.application.credentials.dig(:google_oauth_client_id),
                   Rails.application.credentials.dig(:google_oauth_client_secret)
-                  
+  
+  config.omniauth :vkontakte,
+                  Rails.application.credentials.dig(:vk_oauth_client_id),
+                  Rails.application.credentials.dig(:vk_oauth_client_secret)
+  
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
 

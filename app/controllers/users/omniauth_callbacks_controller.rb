@@ -20,6 +20,19 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
 
+  def vkontakte
+    user = User.from_omniauth_vk(auth)
+    if user.present?
+      sign_out_all_scopes
+      flash[:success] = t 'devise.omniauth_callbacks.success', kind: 'Google'
+      sign_in_and_redirect user, event: :authentication # this will throw if @user is not activated
+    else
+      flash[:alert] = t 'devise.omniauth_callbacks.failure', kind: 'Google', reason: "#{user.errors.full_messages.to_sentence}"
+      redirect_to new_user_session_path
+    end
+  end
+
+
   # More info at:
   # https://github.com/heartcombo/devise#omniauth
 

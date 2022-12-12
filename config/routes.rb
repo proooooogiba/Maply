@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   root "maps#index"
+  get 'maps/index', as: :maps
+  # get 'maps/result', as: :maps_result
   post '/result', to: 'maps#result'
   get 'users/index', as: :user
   get 'users/show', as: :user_show

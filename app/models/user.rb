@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-          :omniauthable, omniauth_providers: [:google_oauth2]
+          :omniauthable, omniauth_providers: [:google_oauth2, :vkontakte]
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
@@ -16,4 +16,15 @@ class User < ApplicationRecord
       # user.skip_confirmation!
     end
   end
+
+  def self.from_omniauth_vk(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.full_name = auth.info.name   # assuming the user model has a name
+      user.avatar_url = auth.info.image # assuming the user model has an image
+      # If you are using confirmable and the provider(s) you use validate emails,
+      # uncomment the line below to skip the confirmation emails.
+      # user.skip_confirmation!
+    end
+  end
+
 end

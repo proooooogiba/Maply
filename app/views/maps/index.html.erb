@@ -1,7 +1,7 @@
 <script type="text/javascript">
 ymaps.ready(init);
 
-let MyMap;
+var MyMap;
 
 function init() {
 	myMap = new ymaps.Map('ymap', {
@@ -42,13 +42,13 @@ function show_users(length) {
         longitude = document.getElementById('user-longitude-' + i).textContent;
         email = document.getElementById('user-email-' + i).textContent;
         updated_at = document.getElementById('user-updated_at-' + i).textContent;
+        avatar = document.getElementById('user-avatar-' + i).innerHTML;
         myPlacemark = new ymaps.Placemark([parseFloat(latitude), parseFloat(longitude)], {
             balloonContentHeader: '<a href = "#">' + email + '</a><br>' +
             '<span class="description">' + email + '</span>',
-            balloonContentBody:
-            '<img src="img/cinema.jpg" height="150" width="200"> <br/> ' +
+            balloonContentBody: avatar + '<br>' +
             '<b>Последний раз заходил в ' + updated_at + '</b> <br/>',
-            hintContent: email
+            hintContent: name
         }, {
             preset: 'islands#circleIcon',
             iconColor: '#3caa3c',
@@ -106,6 +106,11 @@ function get_location() {
             <p id="user-latitude-<%=index%>"><%= user.latitude%></p>
             <p id="user-longitude-<%=index%>"><%= user.longitude%></p>
             <p id="user-updated_at-<%=index%>"><%= user.updated_at%></p>
+            <%unless user.avatar_url.nil?%>
+                <p id="user-avatar-<%=index%>"><%= image_tag(user.avatar_url)%></p>
+            <%else%>
+                <p id="user-avatar-<%=index%>"><%= image_tag("no-photo.png", size:"96x96")%></p>
+            <%end%>
         <%end%>
     </div>
   </div>
