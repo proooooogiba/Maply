@@ -6,9 +6,8 @@ let MyMap;
 function init() {
 	myMap = new ymaps.Map('ymap', {
 		center: [55.76, 37.64],
-		zoom: 10,
-		// type: 'yandex#satellite'
-	});
+		zoom: 10
+    });
 
 	myMap.controls.remove('geolocationControl');
 	myMap.controls.remove('searchControl');
@@ -19,6 +18,7 @@ function init() {
 	myMap.controls.remove('miniMap');
 
 	let geolocation = ymaps.geolocation
+    
 
     geolocation.get({
         provider: 'browser',
@@ -36,18 +36,35 @@ function init() {
 	myMap.copyrights.add('© Иван Погиба');
 }
 
-function add_points(length) {
+function show_users(length) {
     for(let i = 0; i < length; i++) {
         latitude = document.getElementById('user-latitude-' + i).textContent;
         longitude = document.getElementById('user-longitude-' + i).textContent;
         email = document.getElementById('user-email-' + i).textContent;
-        console.log(latitude, longitude, email);
-        myMap.geoObjects.add(new ymaps.Placemark([parseFloat(latitude), parseFloat(longitude)], {
-            balloonContent: '<strong>' + email + '</strong>'
+        updated_at = document.getElementById('user-updated_at-' + i).textContent;
+        myPlacemark = new ymaps.Placemark([parseFloat(latitude), parseFloat(longitude)], {
+            balloonContentHeader: '<a href = "#">' + email + '</a><br>' +
+            '<span class="description">' + email + '</span>',
+            balloonContentBody:
+            '<img src="img/cinema.jpg" height="150" width="200"> <br/> ' +
+            '<b>Последний раз заходил в ' + updated_at + '</b> <br/>',
+            hintContent: email
         }, {
             preset: 'islands#circleIcon',
-            iconColor: '#3caa3c'
-        }))
+            iconColor: '#3caa3c',
+        });
+
+        myPlacemark.events
+        .add('mouseenter', function (e) {
+            e.get('target').options.set('preset', 'islands#circleIcon');
+            e.get('target').options.set('iconColor', '#FF0000');
+        });
+        // .add('mouseleave', function (e) {
+        //     e.get('target').options.set('preset', 'islands#circleIcon');
+        //     e.get('target').options.set('iconColor', '#3caa3c');
+        // });
+        
+        myMap.geoObjects.add(myPlacemark);
     }
 }
 
@@ -64,7 +81,6 @@ function get_location() {
         });
         document.getElementById('latitude').value = result.geoObjects.get(0).geometry.getCoordinates()[0];
         document.getElementById('longitude').value = result.geoObjects.get(0).geometry.getCoordinates()[1];
-		console.log(result.geoObjects.get(0).geometry.getCoordinates()[1]);
     });
 }
 
@@ -82,13 +98,14 @@ function get_location() {
             <%= f.text_field :longitude, id: :longitude  %>
             <%= f.submit class: "btn btn-primary" %>
         <%end%>
-        <button type="button" class="btn btn-primary" onclick="add_points(<%= User.all.count %>)">Show</button>
+        <button type="button" class="btn btn-primary" onclick="show_users(<%= User.all.count %>)">Show</button>
     </div>
     <div id="users" style="display: none;">
         <% User.all.each_with_index do |user, index|%>
-        <p id="user-email-<%=index%>"><%= user.email %></p>
-        <p id="user-latitude-<%=index%>"><%= user.latitude%></p>
-        <p id="user-longitude-<%=index%>"><%= user.longitude%></p>
+            <p id="user-email-<%=index%>"><%= user.email %></p>
+            <p id="user-latitude-<%=index%>"><%= user.latitude%></p>
+            <p id="user-longitude-<%=index%>"><%= user.longitude%></p>
+            <p id="user-updated_at-<%=index%>"><%= user.updated_at%></p>
         <%end%>
     </div>
   </div>
