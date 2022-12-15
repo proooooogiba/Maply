@@ -44,7 +44,7 @@ function show_users(length) {
         updated_at = document.getElementById('user-updated_at-' + i).textContent;
         avatar = document.getElementById('user-avatar-' + i).innerHTML;
         myPlacemark = new ymaps.Placemark([parseFloat(latitude), parseFloat(longitude)], {
-            balloonContentHeader: '<a href = "#">' + email + '</a><br>' +
+            balloonContentHeader: '<a href = "/users/user_profile?email=' + email + '">' + email + '</a><br>' +
             '<span class="description">' + email + '</span>',
             balloonContentBody: avatar + '<br>' +
             '<b>Последний раз заходил в ' + updated_at + '</b> <br/>',
@@ -58,11 +58,11 @@ function show_users(length) {
         .add('mouseenter', function (e) {
             e.get('target').options.set('preset', 'islands#circleIcon');
             e.get('target').options.set('iconColor', '#FF0000');
+        })
+        .add('mouseleave', function (e) {
+            e.get('target').options.set('preset', 'islands#circleIcon');
+            e.get('target').options.set('iconColor', '#3caa3c');
         });
-        // .add('mouseleave', function (e) {
-        //     e.get('target').options.set('preset', 'islands#circleIcon');
-        //     e.get('target').options.set('iconColor', '#3caa3c');
-        // });
         
         myMap.geoObjects.add(myPlacemark);
     }
@@ -114,3 +114,4 @@ function get_location() {
         <%end%>
     </div>
   </div>
+

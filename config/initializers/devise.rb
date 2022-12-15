@@ -30,8 +30,16 @@ Devise.setup do |config|
                   Rails.application.credentials.dig(:google_oauth_client_secret)
   
   config.omniauth :vkontakte,
-                  Rails.application.credentials.dig(:vk_oauth_client_id),
-                  Rails.application.credentials.dig(:vk_oauth_client_secret)
+                  Rails.application.credentials.dig(:vk_oauth_api_key),
+                  Rails.application.credentials.dig(:vk_oauth_api_secret),
+                  scope: 'friends,audio,photos',
+                  display: 'popup',
+                  lang: 'en',
+                  # https: 1,
+                  image_size: 'original'
+  
+  
+  config.omniauth :github, 'ad3e8f9e7c849ca28cea', '21a839c6f819a6e36cf96d574831255c8be822ad'
   
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'

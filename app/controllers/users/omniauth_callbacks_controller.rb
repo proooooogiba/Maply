@@ -24,14 +24,25 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     user = User.from_omniauth_vk(auth)
     if user.present?
       sign_out_all_scopes
-      flash[:success] = t 'devise.omniauth_callbacks.success', kind: 'Google'
+      flash[:success] = t 'devise.omniauth_callbacks.success'
       sign_in_and_redirect user, event: :authentication # this will throw if @user is not activated
     else
-      flash[:alert] = t 'devise.omniauth_callbacks.failure', kind: 'Google', reason: "#{user.errors.full_messages.to_sentence}"
+      flash[:alert] = t 'devise.omniauth_callbacks.failure', reason: "#{user.errors.full_messages.to_sentence}"
       redirect_to new_user_session_path
     end
   end
 
+  def github
+    user = User.from_omniauth_github(request.env['omniauth.auth'])
+
+    if user.persisted?
+      flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Github'
+      sign_in_and_redirect user, event: :authentication
+    else
+      session['devise.github_data'] = request.env['omniauth.auth'].except('extra') # Removing extra as it can overflow some session stores
+      redirect_to new_user_session_path, alert: user.errors.full_messages.join("\n")
+    end
+  end
 
   # More info at:
   # https://github.com/heartcombo/devise#omniauth

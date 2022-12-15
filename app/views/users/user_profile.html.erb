@@ -1,0 +1,16 @@
+<p><strong>email</strong> <%= @user.email %></p>
+<p><strong>created at</strong> <%= @user.created_at %></p>
+<p><strong>updated at</strong> <%= @user.updated_at %></p>
+<% unless @user.avatar_url.nil?%>
+    <%= image_tag(@user.avatar_url) %>
+<%else%>
+    <%= image_tag("no-photo.png", size:"96x96") %>
+<% end %>
+<div class="price">
+<div class="row align-items-end">
+    <div class="col">
+    <%= button_to "Вернуться назад", maps_path,
+        :class => "btn btn-primary btn-lg active", :method => :get %>
+    </div>
+</div>
+</div>
