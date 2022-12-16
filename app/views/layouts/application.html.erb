@@ -12,6 +12,17 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <script src="https://api-maps.yandex.ru/2.1/?apikey=<%=Rails.application.credentials[:yandex_maps_api_key]%>&lang=ru_RU" type="text/javascript"></script>
+  <style>
+      <%= ".msg-#{current_user&.id}" %> {
+      background-color: #007bff !important;
+      padding: 10px;
+      }
+      <%= ".cont-#{current_user&.id}" %> {
+      display: flex;
+        justify-content: flex-end
+      }
+    </style>
+
   </head>
   <body>
 
@@ -34,7 +45,10 @@
           <%= link_to "Edit Profile", edit_user_registration_path, class: 'nav-link', 'data-turbo-method': :update %>
         </li>
         <li class="nav-item">
-          <%= link_to "Show Profile", user_show_path, class: 'nav-link', 'data-turbo-method': :show %>
+          <%= link_to "Show Profile", user_profile_path, class: 'nav-link', 'data-turbo-method': :user_profile %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Chat", rooms_path, class: 'nav-link', 'data-turbo-method': :show %>
         </li>
           <% else %>
         <li class="nav-item">

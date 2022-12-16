@@ -4,6 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
           :omniauthable, omniauth_providers: [:google_oauth2, :vkontakte, :github]
+  
+  scope :all_except, -> (user) { where.not(id: user) } 
+  after_create_commit { broadcast_append_to 'users' }
+  has_many :messages
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

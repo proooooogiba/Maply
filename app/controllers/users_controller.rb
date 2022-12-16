@@ -4,11 +4,12 @@ class UsersController < ApplicationController
     end
   
     def show
-      @user = current_user
+      @user = User.find_by_id(params[:id])
     end
 
     def user_profile
-      @user = User.find_by_email(params[:email])
+      @user = current_user
     end
-  end
+    
+end
   

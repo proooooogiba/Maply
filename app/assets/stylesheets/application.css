@@ -12,15 +12,6 @@
  *
  *= require_tree .
  *= require_self
- */
-
-/* html, body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-} */
-
 
 /* Единственный минус это противоречит условиям соглашения использования api */
 /* [class*="ymaps-2"][class*="-ground-pane"] {
@@ -54,9 +45,54 @@ html, body {
     height: 100%;
 }
 
-/* .navigation {
-    float: right;
-    width: 15%;
-    height: 100%;
-    background-color: #af525261;
-} */
+.msg-form {
+    width: 100%;
+    height: 56px;
+    padding: 10px;
+}
+  
+#single_room {
+    height: calc(100vh - 150px);
+}
+  
+#messages {
+    height: calc(100vh - 150px);
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+  
+#room_container {
+    height: 100vh;
+    margin-right: 0px !important;
+}
+  
+#side_panel {
+    height: 100vh;
+    margin-right: 0px !important;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    margin-bottom: 55px;
+}
+
+#chatroom_container {
+    height: 100vh;
+    margin-right: 0px !important;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+  
+.msg-content {
+    width: 80%;
+    margin-right: 5px;
+}
+
+.message-box {
+    word-wrap: break-word;
+    width: fit-content;
+    max-width: 40%;
+    padding: 5px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background-color: #555555;
+    padding: 10px;
+}

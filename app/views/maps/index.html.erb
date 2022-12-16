@@ -43,8 +43,9 @@ function show_users(length) {
         email = document.getElementById('user-email-' + i).textContent;
         updated_at = document.getElementById('user-updated_at-' + i).textContent;
         avatar = document.getElementById('user-avatar-' + i);
+        id = document.getElementById('user-id-' + i).textContent;
         myPlacemark = new ymaps.Placemark([parseFloat(latitude), parseFloat(longitude)], {
-            balloonContentHeader: '<a href = "/users/user_profile?email=' + email + '">' + email + '</a><br>' +
+            balloonContentHeader: '<a href = "/user/' + id + '">' + email + '</a><br>' +
             '<span class="description">' + email + '</span>',
             balloonContentBody: avatar.innerHTML + '<br>' +
             '<b>Последний раз заходил в ' + updated_at + '</b> <br/>',
@@ -100,6 +101,7 @@ function get_location() {
             <p id="user-latitude-<%=index%>"><%= user.latitude%></p>
             <p id="user-longitude-<%=index%>"><%= user.longitude%></p>
             <p id="user-updated_at-<%=index%>"><%= user.updated_at%></p>
+            <p id="user-id-<%=index%>"><%= user.id%></p>
             <%unless user.avatar_url.nil?%>
                 <p id="user-avatar-<%=index%>"><%= image_tag(user.avatar_url, size:"96x96")%></p>
             <%else%>
