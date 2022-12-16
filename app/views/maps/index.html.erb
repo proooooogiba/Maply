@@ -42,17 +42,27 @@ function show_users(length) {
         longitude = document.getElementById('user-longitude-' + i).textContent;
         email = document.getElementById('user-email-' + i).textContent;
         updated_at = document.getElementById('user-updated_at-' + i).textContent;
-        avatar = document.getElementById('user-avatar-' + i).innerHTML;
+        avatar = document.getElementById('user-avatar-' + i);
         myPlacemark = new ymaps.Placemark([parseFloat(latitude), parseFloat(longitude)], {
             balloonContentHeader: '<a href = "/users/user_profile?email=' + email + '">' + email + '</a><br>' +
             '<span class="description">' + email + '</span>',
-            balloonContentBody: avatar + '<br>' +
+            balloonContentBody: avatar.innerHTML + '<br>' +
             '<b>Последний раз заходил в ' + updated_at + '</b> <br/>',
-            hintContent: name
-        }, {
-            preset: 'islands#circleIcon',
-            iconColor: '#3caa3c',
-        });
+            // hintContent: name
+        }, 
+        {
+            // Опции.
+            // Необходимо указать данный тип макета.
+            iconLayout: 'default#image',
+            // Своё изображение иконки метки.
+            iconImageHref: avatar.getElementsByTagName("img")[0].getAttribute("src"),
+            // Размеры метки.
+            iconImageSize: [40, 40],
+            // Смещение левого верхнего угла иконки относительно
+            // её "ножки" (точки привязки).
+            iconImageOffset: [-5, -38]
+        }
+        );
 
         myPlacemark.events
         .add('mouseenter', function (e) {
@@ -114,4 +124,3 @@ function get_location() {
         <%end%>
     </div>
   </div>
-

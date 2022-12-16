@@ -24,7 +24,7 @@
     url: omniauth_authorize_path(resource_name, provider),
     method: :post,
     data: {turbo: "false"} do |f|%>
-      <%= f.submit "Log in", type: "image", src: url_for("/assets/#{provider}.png")%>
+      <%= f.submit "Log in", type: "image", src: url_for("/assets/#{provider}.png"), size:"96x96"%>
     <% end %>
   <% end %>
 <% end %>

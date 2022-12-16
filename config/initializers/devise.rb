@@ -38,9 +38,10 @@ Devise.setup do |config|
                   # https: 1,
                   image_size: 'original'
   
-  
-  config.omniauth :github, 'ad3e8f9e7c849ca28cea', '21a839c6f819a6e36cf96d574831255c8be822ad'
-  
+  config.omniauth :github, 
+                  Rails.application.credentials.dig(:github_oauth_client_id),
+                  Rails.application.credentials.dig(:github_oauth_client_secret)
+
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
 
