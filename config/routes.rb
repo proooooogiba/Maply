@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   end
 
   get 'user/:id', to: 'users#show', as: :user
+  # get 'user/:id/profile', to: 'users#user_profile', as: :user_profile
   
   get 'maps/index', as: :maps
   post '/result', to: 'maps#result'
@@ -23,6 +24,7 @@ Rails.application.routes.draw do
   get 'users/sign_out', as: :user_sign_out
   get 'users/sign_in', as: :user_sign_in
   get 'users/user_profile', as: :user_profile
+  get 'users/show_user_profile', as: :show_user_profile
   
   # Defines the root path route ("/")
   resources :users, only: [:index]

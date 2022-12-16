@@ -9,7 +9,7 @@ function init() {
 		zoom: 10
     });
 
-	myMap.controls.remove('geolocationControl');
+	// myMap.controls.remove('geolocationControl');
 	myMap.controls.remove('searchControl');
 	myMap.controls.remove('trafficControl');
 	myMap.controls.remove('typeSelector');
@@ -45,8 +45,7 @@ function show_users(length) {
         avatar = document.getElementById('user-avatar-' + i);
         id = document.getElementById('user-id-' + i).textContent;
         myPlacemark = new ymaps.Placemark([parseFloat(latitude), parseFloat(longitude)], {
-            balloonContentHeader: '<a href = "/user/' + id + '">' + email + '</a><br>' +
-            '<span class="description">' + email + '</span>',
+            balloonContentHeader: '<a href = "/users/show_user_profile?id=' + id + '">' + email + '</a><br>',
             balloonContentBody: avatar.innerHTML + '<br>' +
             '<b>Последний раз заходил в ' + updated_at + '</b> <br/>',
             // hintContent: name
