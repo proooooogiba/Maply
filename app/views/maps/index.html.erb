@@ -49,31 +49,15 @@ function show_users(length) {
             balloonContentBody: avatar.innerHTML + '<br>' +
             '<b>Последний раз заходил в ' + updated_at + '</b> <br/>',
             // hintContent: name
-        }, 
+        },
         {
-            // Опции.
-            // Необходимо указать данный тип макета.
             iconLayout: 'default#image',
-            // Своё изображение иконки метки.
             iconImageHref: avatar.getElementsByTagName("img")[0].getAttribute("src"),
-            // Размеры метки.
             iconImageSize: [40, 40],
-            // Смещение левого верхнего угла иконки относительно
-            // её "ножки" (точки привязки).
             iconImageOffset: [-5, -38]
         }
         );
 
-        myPlacemark.events
-        .add('mouseenter', function (e) {
-            e.get('target').options.set('preset', 'islands#circleIcon');
-            e.get('target').options.set('iconColor', '#FF0000');
-        })
-        .add('mouseleave', function (e) {
-            e.get('target').options.set('preset', 'islands#circleIcon');
-            e.get('target').options.set('iconColor', '#3caa3c');
-        });
-        
         myMap.geoObjects.add(myPlacemark);
     }
 }
@@ -117,7 +101,7 @@ function get_location() {
             <p id="user-longitude-<%=index%>"><%= user.longitude%></p>
             <p id="user-updated_at-<%=index%>"><%= user.updated_at%></p>
             <%unless user.avatar_url.nil?%>
-                <p id="user-avatar-<%=index%>"><%= image_tag(user.avatar_url)%></p>
+                <p id="user-avatar-<%=index%>"><%= image_tag(user.avatar_url, size:"96x96")%></p>
             <%else%>
                 <p id="user-avatar-<%=index%>"><%= image_tag("no-photo.png", size:"96x96")%></p>
             <%end%>

@@ -31,19 +31,15 @@ class User < ApplicationRecord
 
   def self.from_omniauth_github(access_token)
     data = access_token.info
-    puts data['email']
-    puts data['email']
-    puts data['email']
-    puts data['email']
-    puts data['email']
-    puts data['email']
-    
     user = User.where(email: data['email']).first
     unless user
         user = User.create(
            full_name: data['name'],
            email: data['email'],
-           password: Devise.friendly_token[0,20]
+           password: Devise.friendly_token[0,20],
+           avatar_url: data['image'],
+           provider: access_token.provider,
+           uid: access_token.uid
         )
     end
     user

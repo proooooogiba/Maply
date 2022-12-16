@@ -3,7 +3,7 @@
 <p><strong>created at</strong> <%= @user.created_at %></p>
 <p><strong>updated at</strong> <%= @user.updated_at %></p>
 <% unless @user.avatar_url.nil?%>
-    <%= image_tag(@user.avatar_url) %>
+    <%= image_tag(@user.avatar_url, size: "96x96") %>
 <%else%>
     <%= image_tag("no-photo.png", size:"96x96") %>
 <% end %>
