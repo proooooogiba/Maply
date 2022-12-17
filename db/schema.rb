@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_16_212830) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_17_192849) do
+  create_table "followability_relationships", force: :cascade do |t|
+    t.string "followerable_type", null: false
+    t.integer "followerable_id", null: false
+    t.string "followable_type", null: false
+    t.integer "followable_id", null: false
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["followable_type", "followable_id"], name: "index_followability_relationships_on_followable"
+    t.index ["followerable_type", "followerable_id"], name: "index_followability_relationships_on_followerable"
+  end
+
   create_table "messages", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "room_id", null: false

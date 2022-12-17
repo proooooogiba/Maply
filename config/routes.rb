@@ -14,8 +14,14 @@ Rails.application.routes.draw do
     get 'users', to: 'devise/sessions#new'
   end
 
+  post 'user/:id/', to: 'users#create'
+  post 'user/:id/follow', to: 'users#follow', as: 'follow'
+  post 'user/:id/unfollow', to: 'users#unfollow', as: 'unfollow'
+  post 'user/:id/accept', to: 'users#accept', as: 'accept'
+  post 'user/:id/decline', to: 'users#decline', as: 'decline'
+  post 'user/:id/cancel', to: 'users#cancel', as: 'cancel'
+
   get 'user/:id', to: 'users#show', as: :user
-  # get 'user/:id/profile', to: 'users#user_profile', as: :user_profile
   
   get 'maps/index', as: :maps
   post '/result', to: 'maps#result'

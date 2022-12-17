@@ -8,7 +8,11 @@ class User < ApplicationRecord
   scope :all_except, -> (user) { where.not(id: user) } 
   after_create_commit { broadcast_append_to 'users' }
   has_many :messages
+  followability
 
+  def unfollow(user)
+    followerable_relationships.where(followable_id: user.id).destroy_all
+  end
 
   def self.search(params)
     params[:query].blank? ? none : where(

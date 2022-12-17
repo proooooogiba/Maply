@@ -6,6 +6,16 @@
 <%else%>
     <%= image_tag("no-photo.png", size:"96x96") %>
 <% end %>
+<% current_user.follow_requests.each do |request| %>
+        <%= request.followerable.email %> wants to follow you
+        <%= button_to "Accept", accept_path(request.followerable) %>
+        <%= button_to "Decline", decline_path(request.followerable) %>
+    <% end %>
+    <hr />
+<% current_user.followers.each do |user| %>
+        <%= link_to user.email, users_path(user) %> is following you
+        <%= button_to "Unfollow", unfollow_path(user) %>
+<% end %>
 <div class="price">
 <div class="row align-items-end">
     <div class="col">
