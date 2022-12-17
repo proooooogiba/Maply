@@ -9,6 +9,13 @@ class User < ApplicationRecord
   after_create_commit { broadcast_append_to 'users' }
   has_many :messages
 
+
+  def self.search(params)
+    params[:query].blank? ? none : where(
+      "full_name LIKE ?", "%#{sanitize_sql_like(params[:query])}%"
+    )
+  end
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
