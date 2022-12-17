@@ -32,11 +32,11 @@ function init() {
 
 	myMap.copyrights.add('© Иван Погиба');
     console.log("Hello from yandex maps");
-    show_users(<%= User.all.count %>);
+    show_users(<%= current_user.followers.count %>);
 }
 
 function show_users(length) {
-    for(let i = 1; i < length; i++) {
+    for(let i = 0; i < length; i++) {
         latitude = document.getElementById('user-latitude-' + i).textContent;
         longitude = document.getElementById('user-longitude-' + i).textContent;
         email = document.getElementById('user-email-' + i).textContent;
@@ -44,7 +44,7 @@ function show_users(length) {
         avatar = document.getElementById('user-avatar-' + i);
         id = document.getElementById('user-id-' + i).textContent;
         myPlacemark = new ymaps.Placemark([parseFloat(latitude), parseFloat(longitude)], {
-            balloonContentHeader: '<a href = "/users/show_user_profile?id=' + id + '">' + email + '</a><br>',
+            balloonContentHeader: '<a href = "/user/show_user_profile/' + id + '">' + email + '</a><br>',
             balloonContentBody: avatar.innerHTML + '<br>' +
             '<b>Последний раз заходил в ' + updated_at + '</b> <br/>',
             // hintContent: name
@@ -93,7 +93,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     <% end %>
     <hr />
     <% current_user.followers.each do |user| %>
-        <%= link_to user.email, users_path(user) %> is following you
+        <%= link_to user.email, show_user_profile_path(user) %> is following you
         <%= button_to "Unfollow", unfollow_path(user) %>
     <% end %>
        
@@ -113,7 +113,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     </div>
     </div>
     <div id="users" style="display: none;">
-        <% User.all.each_with_index do |user, index|%>
+        <% current_user.followers.each_with_index do |user, index|%>
             <p id="user-email-<%=index%>"><%= user.email %></p>
             <p id="user-latitude-<%=index%>"><%= user.latitude%></p>
             <p id="user-longitude-<%=index%>"><%= user.longitude%></p>

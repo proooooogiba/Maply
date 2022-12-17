@@ -5,7 +5,7 @@ class RoomsController < ApplicationController
     @room = Room.new
     @rooms = Room.public_rooms
 
-    @users = User.all_except(current_user)
+    @users = current_user.followers
     render 'index'
   end
 
@@ -17,7 +17,7 @@ class RoomsController < ApplicationController
     @message = Message.new
     @messages = @single_room.messages.order(created_at: :asc)
 
-    @users = User.all_except(current_user)
+    @users = current_user.followers
     render 'index'
   end
 

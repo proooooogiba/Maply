@@ -1,19 +1,17 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user, only: [:show, :follow, :unfollow, :accept, :decline, :cancel]
+  before_action :set_user, only: [:show, :follow, :unfollow, :accept, :decline, :cancel, :show_user_profile]
     def index
       @users = User.all
     end
 
     def follow
       current_user.send_follow_request_to(@user)
-      redirect_to user_path(@user)
     end
   
     def unfollow
       make_it_an_unfriend_request
       current_user.unfollow(@user)
-      redirect_to user_path(@user)
     end
   
     def accept
@@ -34,7 +32,7 @@ class UsersController < ApplicationController
   
     def show
       @user = User.find(params[:id])
-      @users = User.all_except(current_user)
+      @users = current_user.followers
 
       @room = Room.new
       @rooms = Room.public_rooms

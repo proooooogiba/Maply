@@ -21,6 +21,9 @@ Rails.application.routes.draw do
   post 'user/:id/decline', to: 'users#decline', as: 'decline'
   post 'user/:id/cancel', to: 'users#cancel', as: 'cancel'
 
+  get 'user/show_user_profile/:id', to: 'users#show_user_profile', as: :show_user_profile
+  # get '/patients/:id', to: 'patients#show', as: 'patient'
+
   get 'user/:id', to: 'users#show', as: :user
   
   get 'maps/index', as: :maps
@@ -30,8 +33,7 @@ Rails.application.routes.draw do
   get 'users/sign_out', as: :user_sign_out
   get 'users/sign_in', as: :user_sign_in
   get 'users/user_profile', as: :user_profile
-  get 'users/show_user_profile', as: :show_user_profile
-  
+
   # Defines the root path route ("/")
   resources :users, only: [:index]
 end

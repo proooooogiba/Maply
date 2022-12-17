@@ -13,7 +13,7 @@
     <% end %>
     <hr />
 <% current_user.followers.each do |user| %>
-        <%= link_to user.email, users_path(user) %> is following you
+        <%= link_to user.email, show_user_profile_path(user)  %> is following you
         <%= button_to "Unfollow", unfollow_path(user) %>
 <% end %>
 <div class="price">
@@ -22,5 +22,5 @@
     <%= button_to "Вернуться назад", maps_path,
         :class => "btn btn-primary btn-lg active", :method => :get %>
     </div>
-</div>
+ </div>
 </div>
