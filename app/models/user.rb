@@ -20,8 +20,8 @@ class User < ApplicationRecord
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
-      user.full_name = auth.info.name   # assuming the user model has a name
-      user.avatar_url = auth.info.image # assuming the user model has an image
+      user.full_name = auth.info.name
+      user.avatar_url = auth.info.image
       # If you are using confirmable and the provider(s) you use validate emails,
       # uncomment the line below to skip the confirmation emails.
       # user.skip_confirmation!
@@ -32,8 +32,8 @@ class User < ApplicationRecord
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = "auth-info@email.com"
       user.password = Devise.friendly_token[0, 20]
-      user.full_name = auth.info.name   # assuming the user model has a name
-      user.avatar_url = auth.info.image # assuming the user model has an image
+      user.full_name = auth.info.name
+      user.avatar_url = auth.info.image
       # If you are using confirmable and the provider(s) you use validate emails,
       # uncomment the line below to skip the confirmation emails.
       # user.skip_confirmation!
