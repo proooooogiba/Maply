@@ -1,0 +1,12 @@
+<table class="table table-zebra mt-0 w-full">
+  <thead>
+    <tr class="w-full">
+      <th class="text-left">Name</th>
+      <th class="text-left">Email</th>
+      <th class="text-left">Add</th>
+    </tr>
+  </thead>
+  <tbody id="nearest-person" data-controller="contacts" data-action="">
+  <%= render partial: "maps/contact", locals: { contact: user } %>
+  </tbody>
+</table>

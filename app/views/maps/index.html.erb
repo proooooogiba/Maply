@@ -88,6 +88,24 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
     <%= render partial: "maps/follow_request", locals: { user: current_user }%>
     <hr />
+    <div class="prose lg:prose-xl">
+        <%= form_with url: find_nearest_path do |form| %>
+            <%= form.submit "Find nearest person to you", class: "btn btn-primary" %>
+        <% end %>
+    </div>
+
+    <div id='find-nearest-container'></div>
+
+    <hr />
+        <div class="prose lg:prose-xl">
+        <%= form_with url: find_nearest_friend_path do |form| %>
+            <%= form.submit "Find nearest friend to you", class: "btn btn-primary" %>
+        <% end %>
+    </div>
+
+    <div id='find-nearest-friend-container'></div>
+
+    <hr />
        
         <div class="prose lg:prose-xl">
             <%= form_tag maps_path, method: :get, data: { turbo_frame: "search-results", turbo_action: "advance"} do |f| %>

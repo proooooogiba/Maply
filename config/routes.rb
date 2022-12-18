@@ -26,6 +26,8 @@ Rails.application.routes.draw do
   get 'user/:id', to: 'users#show', as: :user
   
   get 'maps/index', as: :maps
+  post '/find_nearest', to: 'maps#find_nearest', as: :find_nearest
+  post '/find_nearest_friend', to: 'maps#find_nearest_friend', as: :find_nearest_friend
   post '/result', to: 'maps#result'
   # get 'users/index', as: :user_index
   get 'users/show', as: :user_show
