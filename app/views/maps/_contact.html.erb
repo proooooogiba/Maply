@@ -1,11 +1,5 @@
 <tr id="<%= dom_id(contact) %>" data-stream-enter-class="animate-item-in" data-stream-exit-class="animate-item-out">
   <td><%= contact.full_name %></td>
-  <td><%= contact.email %></td>
-  <td><%= button_to "Add", class: "btn btn-primary" %></td>
+  <td><%= contact.email %></td>  
+  <td><%= render partial: "maps/followability_button", locals: { contact: contact }  %></td>
 </tr>
-
-<% if false%>
-  <%# <td><%= link_to contact.name, contact_path(contact), data: { turbo_frame: "_top" } %></td> %>
-  <%# <td><%= link_to "Edit", edit_contact_path(contact), class: "btn btn-link btn-sm", data: { turbo_frame: "_top" } %></td> %>
-<%end%>
-

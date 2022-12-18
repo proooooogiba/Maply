@@ -1,33 +1,36 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user, only: [:show, :follow, :unfollow, :accept, :decline, :cancel, :show_user_profile]
+  before_action :set_user, only: [:show, :follow, :unfollow, :accept, :decline, :cancel]
     def index
-      @users = User.all
+      @users = User.all_except(current_user)
     end
 
     def follow
+      @users = current_user.followers
       current_user.send_follow_request_to(@user)
+      redirect_back fallback_location: root_path
     end
   
     def unfollow
       make_it_an_unfriend_request
       current_user.unfollow(@user)
+      redirect_back fallback_location: root_path
     end
   
     def accept
       current_user.accept_follow_request_of(@user)
       make_it_a_friend_request
-      redirect_to root_path
+      redirect_back fallback_location: root_path
     end
   
     def decline
       current_user.decline_follow_request_of(@user)
-      redirect_to root_path
+      redirect_back fallback_location: root_path
     end
   
     def cancel
       current_user.remove_follow_request_for(@user)
-      redirect_to root_path
+      redirect_back fallback_location: root_path
     end
   
     def show

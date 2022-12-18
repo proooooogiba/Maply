@@ -1,0 +1,7 @@
+<% if current_user.mutual_following_with?(contact) %>
+<%= button_to "Delete", unfollow_path(contact) %>
+<% elsif current_user.sent_follow_request_to?(contact)%>
+  <%= button_to "Cancel addition request", cancel_path(contact) %>
+<% else %>
+  <%= button_to "Add",  follow_path(contact) %>
+<% end %>

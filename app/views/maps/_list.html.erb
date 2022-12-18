@@ -8,8 +8,7 @@
   </thead>
   <tbody id="contacts-list" data-controller="contacts" data-action="">
   <% contacts.each do |contact| %>
-    <%= render partial: "contact", locals: { contact: contact }  %>
+    <%= render partial: "maps/contact", locals: { contact: contact }  %>
   <% end %>
   </tbody>
 </table>
-

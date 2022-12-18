@@ -7,13 +7,10 @@
     <%= image_tag("no-photo.png", size:"96x96") %>
 <% end %>
 
-<% if current_user.mutual_following_with?(@user) %>
-  <%= button_to "Unfollow", unfollow_path(@user) %>
-<% elsif current_user.sent_follow_request_to?(@user)%>
-  <%= button_to "Cancel follow request", cancel_path(@user) %>
-<% else %>
-  <%= button_to "Follow",  follow_path(@user) %>
-<% end %>
+<%= turbo_stream_from @user %>
+<div id="<%= dom_id(@user) %>">
+<%= render partial: "maps/followability_button", locals: { contact: @user }  %>
+</div>
 
 <div class="price">
 <div class="row align-items-end">

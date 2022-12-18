@@ -2,7 +2,7 @@ class MapsController < ApplicationController
     before_action :authenticate_user!
     
     def index
-      @users = User.search(params)
+      @users = User.all_except(current_user).search(params)
     end
 
     def result

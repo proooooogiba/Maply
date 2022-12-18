@@ -86,16 +86,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
         <%= f.submit class: "btn btn-primary" %>
     <%end%>
 
-    <% current_user.follow_requests.each do |request| %>
-        <%= request.followerable.email %> wants to follow you
-        <%= button_to "Accept", accept_path(request.followerable) %>
-        <%= button_to "Decline", decline_path(request.followerable) %>
-    <% end %>
+    <%= render partial: "maps/follow_request", locals: { user: current_user }%>
     <hr />
-    <% current_user.followers.each do |user| %>
-        <%= link_to user.email, show_user_profile_path(user) %> is following you
-        <%= button_to "Unfollow", unfollow_path(user) %>
-    <% end %>
        
         <div class="prose lg:prose-xl">
             <%= form_tag maps_path, method: :get, data: { turbo_frame: "search-results", turbo_action: "advance"} do |f| %>
@@ -106,7 +98,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
         <div class="bg-gray-100 p-8 col-span-5">
                 <%= turbo_frame_tag "search-results" do %>
-                <%= render partial: "list", locals: { contacts: @users } %>
+                <%= render partial: "maps/list", locals: { contacts: @users } %>
             <% end %>
         </div>
 
@@ -127,4 +119,3 @@ window.addEventListener('DOMContentLoaded', (event) => {
         <%end%>
     </div>
   </div>
-

@@ -22,7 +22,6 @@ Rails.application.routes.draw do
   post 'user/:id/cancel', to: 'users#cancel', as: 'cancel'
 
   get 'user/show_user_profile/:id', to: 'users#show_user_profile', as: :show_user_profile
-  # get '/patients/:id', to: 'patients#show', as: 'patient'
 
   get 'user/:id', to: 'users#show', as: :user
   
