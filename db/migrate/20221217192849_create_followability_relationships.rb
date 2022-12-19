@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateFollowabilityRelationships < ActiveRecord::Migration[7.0]
   def change
     create_table :followability_relationships do |t|

@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  root "maps#index"
-  
+  root 'maps#index'
+
   resources :rooms do
     resources :messages
   end
@@ -24,7 +26,7 @@ Rails.application.routes.draw do
   get 'user/show_user_profile/:id', to: 'users#show_user_profile', as: :show_user_profile
 
   get 'user/:id', to: 'users#show', as: :user
-  
+
   get 'maps/index', as: :maps
   post '/find_nearest', to: 'maps#find_nearest', as: :find_nearest
   post '/find_nearest_friend', to: 'maps#find_nearest_friend', as: :find_nearest_friend
@@ -33,6 +35,7 @@ Rails.application.routes.draw do
   get 'users/sign_out', as: :user_sign_out
   get 'users/sign_in', as: :user_sign_in
   get 'users/user_profile', as: :user_profile
+  get 'users/edit', as: :user_edit
 
   resources :users, only: [:index]
 end

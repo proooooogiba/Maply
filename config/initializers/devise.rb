@@ -30,8 +30,6 @@ Devise.setup do |config|
   # by default. You can change it below and use your own secret key.
   # config.secret_key = '6c4205a8947ca19797e69d4c27ab0bdbef70f2f458fa44e6a20c21cf788d0379e414bb75fd5403ef1f13ad6e4b6dcab282010bc8993315d61d9554f37aa46860'
 
-
-
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   config.parent_controller = 'TurboDeviseController'
@@ -61,22 +59,22 @@ Devise.setup do |config|
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
   config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
-  config.omniauth :google_oauth2, 
-                  Rails.application.credentials.dig(:google_oauth_client_id),
-                  Rails.application.credentials.dig(:google_oauth_client_secret)
-  
+  config.omniauth :google_oauth2,
+                  Rails.application.credentials[:google_oauth_client_id],
+                  Rails.application.credentials[:google_oauth_client_secret]
+
   config.omniauth :vkontakte,
-                  Rails.application.credentials.dig(:vk_oauth_api_key),
-                  Rails.application.credentials.dig(:vk_oauth_api_secret),
+                  Rails.application.credentials[:vk_oauth_api_key],
+                  Rails.application.credentials[:vk_oauth_api_secret],
                   scope: 'friends,audio,photos',
                   display: 'popup',
                   lang: 'en',
                   # https: 1,
                   image_size: 'original'
-  
-  config.omniauth :github, 
-                  Rails.application.credentials.dig(:github_oauth_client_id),
-                  Rails.application.credentials.dig(:github_oauth_client_secret)
+
+  config.omniauth :github,
+                  Rails.application.credentials[:github_oauth_client_id],
+                  Rails.application.credentials[:github_oauth_client_secret]
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'

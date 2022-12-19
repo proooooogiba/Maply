@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-          :omniauthable, omniauth_providers: [:google_oauth2, :vkontakte, :github]
-  
-  scope :all_except, -> (user) { where.not(id: user) } 
+         :omniauthable, omniauth_providers: %i[google_oauth2 vkontakte github]
+
+  scope :all_except, ->(user) { where.not(id: user) }
   after_create_commit { broadcast_append_to 'users' }
   has_many :messages
   followability
@@ -15,9 +17,13 @@ class User < ApplicationRecord
   end
 
   def self.search(params)
-    params[:query].blank? ? none : where(
-      "full_name LIKE ?", "%#{sanitize_sql_like(params[:query])}%"
-    )
+    if params[:query].blank?
+      none
+    else
+      where(
+        'full_name LIKE ?', "%#{sanitize_sql_like(params[:query])}%"
+      )
+    end
   end
 
   def self.from_omniauth(auth)
@@ -34,7 +40,7 @@ class User < ApplicationRecord
 
   def self.from_omniauth_vk(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.email = "auth-info@email.com"
+      user.email = 'auth-info@email.com'
       user.password = Devise.friendly_token[0, 20]
       user.full_name = auth.info.name
       user.avatar_url = auth.info.image
@@ -47,16 +53,14 @@ class User < ApplicationRecord
   def self.from_omniauth_github(access_token)
     data = access_token.info
     user = User.where(email: data['email']).first
-    unless user
-        user = User.create(
-           full_name: data['name'],
-           email: data['email'],
-           password: Devise.friendly_token[0,20],
-           avatar_url: data['image'],
-           provider: access_token.provider,
-           uid: access_token.uid
-        )
-    end
+    user ||= User.create(
+      full_name: data['name'],
+      email: data['email'],
+      password: Devise.friendly_token[0, 20],
+      avatar_url: data['image'],
+      provider: access_token.provider,
+      uid: access_token.uid
+    )
     user
   end
 end
