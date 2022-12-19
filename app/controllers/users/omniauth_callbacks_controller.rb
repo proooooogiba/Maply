@@ -22,18 +22,6 @@ module Users
       end
     end
 
-    def vkontakte
-      user = User.from_omniauth_vk(auth)
-      if user.present?
-        sign_out_all_scopes
-        flash[:success] = t 'devise.omniauth_callbacks.success'
-        sign_in_and_redirect user, event: :authentication # this will throw if @user is not activated
-      else
-        flash[:alert] = t 'devise.omniauth_callbacks.failure', reason: user.errors.full_messages.to_sentence.to_s
-        redirect_to new_user_session_path
-      end
-    end
-
     def github
       user = User.from_omniauth_github(request.env['omniauth.auth'])
 

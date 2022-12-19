@@ -2,6 +2,12 @@
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
+  
+  
+  <div class="field">
+    <%= f.label :avatar%>
+    <%= f.file_field :avatar%>
+  </div>
 
   <div class="field">
     <%= f.label :full_name %><br />
@@ -32,3 +38,4 @@
 <% end %>
 
 <%= render "devise/shared/links" %>
+

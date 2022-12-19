@@ -77,13 +77,8 @@
         <div class="container py-1">
             <div class="row">
                 <div class="card-body text-center">
-                    <% unless current_user.avatar_url.nil?%>
-                        <%= image_tag(current_user.avatar_url, size: "96x96" , style: "width: 150px;" ,
+                        <%= image_tag(current_user.avatar_thumbnail, size: "96x96" , style: "width: 150px;" ,
                             class: "rounded-circle img-fluid" ) %>
-                            <%else%>
-                                <%= image_tag("no-photo.png", size:"96x96", style: "width: 150px;" ,
-                                    class: "rounded-circle img-fluid" ) %>
-                                    <% end %>
                                         <h5 class="my-3">
                                             <%= current_user.full_name %>
                                         </h5>
@@ -91,14 +86,19 @@
                                             <%= current_user.email %>
                                         </p>
                                         <p class="text-muted mb-4">
-                                            <%= current_user.updated_at %>
+                                            last time updated <%= time_ago_in_words(current_user.updated_at) %> ago
                                         </p>
                 </div>
             </div>
         </div>
         <hr>
-            <%= render partial: "maps/follow_request" , locals: { user: current_user }%>
-            <div class="row-1">
+                    <% current_user.follow_requests.each do |request| %>
+                      <%= request.followerable.full_name %> wants to follow you
+                      <%= button_to "Accept", accept_path(request.followerable), class: 'btn btn-primary btn-sm' %>
+                      <%= button_to "Decline", decline_path(request.followerable), class: 'btn btn-danger btn-sm'  %>
+                        <hr>
+                    <% end %>
+            <div class="row-2">
                 <div class="col-8 mx-auto">
                     <%= form_with url: find_nearest_path do |form| %>
                         <%= form.submit "Find nearest person to you" , class: "btn btn-primary" %>
@@ -150,16 +150,9 @@
         <p id="user-id-<%=index%>">
             <%= user.id%>
         </p>
-        <%unless user.avatar_url.nil?%>
-            <p id="user-avatar-<%=index%>">
-                <%= image_tag(user.avatar_url, size:"96x96")%>
-            </p>
-            <%else%>
-                <p id="user-avatar-<%=index%>">
-                    <%= image_tag("no-photo.png", size:"96x96")%>
-                </p>
-                <%end%>
-                    <%end%>
+        <p id="user-avatar-<%=index%>">
+            <%= image_tag(user.avatar, size:"96x96")%>
+        <%end%>
 </div>
 </div>
 

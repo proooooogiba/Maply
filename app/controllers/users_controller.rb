@@ -51,6 +51,9 @@ class UsersController < ApplicationController
 
   def show_user_profile
     @user = User.find(params[:id])
+    if @user == current_user
+      redirect_to user_profile_path
+    end
   end
 
   def user_profile
