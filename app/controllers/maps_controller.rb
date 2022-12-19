@@ -13,6 +13,9 @@ class MapsController < ApplicationController
     end
 
     def find_nearest_friend
+      if current_user.followers.nil?
+        redirect_to root_path
+      end
       @users = current_user.followers
       current_user_location = [current_user.latitude, current_user.longitude]
       @users = @users.sort_by { |user| Geocoder::Calculations.distance_between(current_user_location, [user.latitude, user.longitude]) }

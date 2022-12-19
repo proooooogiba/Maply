@@ -1,139 +1,175 @@
 <script type="text/javascript">
-ymaps.ready(init);
-var MyMap;
+    ymaps.ready(init);
+    var MyMap;
 
-function init() {
-	myMap = new ymaps.Map('ymap', {
-		center: [55.76, 37.64],
-		zoom: 10
-    });
-
-	myMap.controls.remove('searchControl');
-	myMap.controls.remove('trafficControl');
-	myMap.controls.remove('typeSelector');
-	myMap.controls.remove('fullscreenControl'); 
-	myMap.controls.remove('rulerControl');
-	myMap.controls.remove('miniMap');
-
-	let geolocation = ymaps.geolocation;
-
-    geolocation.get({
-        provider: 'browser',
-        mapStateAutoApply: true
-    }).then(function (result) {
-        result.geoObjects.options.set('preset', 'islands#blueCircleIcon');
-		result.geoObjects.get(0).properties.set({
-            balloonContentBody: 'Мое местоположение'
+    function init() {
+        myMap = new ymaps.Map('ymap', {
+            center: [55.76, 37.64],
+            zoom: 10
         });
-		document.getElementById('latitude').value = result.geoObjects.get(0).geometry.getCoordinates()[0];
-        document.getElementById('longitude').value = result.geoObjects.get(0).geometry.getCoordinates()[1];
-        myMap.geoObjects.add(result.geoObjects);
-    });
 
-	myMap.copyrights.add('© Иван Погиба');
-    console.log("Hello from yandex maps");
-    show_users(<%= current_user.followers.count %>);
-}
+        myMap.controls.remove('searchControl');
+        myMap.controls.remove('trafficControl');
+        myMap.controls.remove('typeSelector');
+        myMap.controls.remove('fullscreenControl');
+        myMap.controls.remove('rulerControl');
+        myMap.controls.remove('miniMap');
 
-function show_users(length) {
-    for(let i = 0; i < length; i++) {
-        latitude = document.getElementById('user-latitude-' + i).textContent;
-        longitude = document.getElementById('user-longitude-' + i).textContent;
-        email = document.getElementById('user-email-' + i).textContent;
-        updated_at = document.getElementById('user-updated_at-' + i).textContent;
-        avatar = document.getElementById('user-avatar-' + i);
-        id = document.getElementById('user-id-' + i).textContent;
-        myPlacemark = new ymaps.Placemark([parseFloat(latitude), parseFloat(longitude)], {
-            balloonContentHeader: '<a href = "/user/show_user_profile/' + id + '">' + email + '</a><br>',
-            balloonContentBody: avatar.innerHTML + '<br>' +
-            '<b>Последний раз заходил в ' + updated_at + '</b> <br/>',
-            // hintContent: name
-        },
-        {
-            iconLayout: 'default#image',
-            iconImageHref: avatar.getElementsByTagName("img")[0].getAttribute("src"),
-            iconImageSize: [40, 40],
-            iconImageOffset: [-5, -38]
-        }
-        );
+        let geolocation = ymaps.geolocation;
 
-        myMap.geoObjects.add(myPlacemark);
+        geolocation.get({
+            provider: 'browser',
+            mapStateAutoApply: true
+        }).then(function (result) {
+            result.geoObjects.options.set('preset', 'islands#blueCircleIcon');
+            result.geoObjects.get(0).properties.set({
+                balloonContentBody: 'Мое местоположение'
+            });
+            document.getElementById('latitude').value = result.geoObjects.get(0).geometry.getCoordinates()[0];
+            document.getElementById('longitude').value = result.geoObjects.get(0).geometry.getCoordinates()[1];
+            document.getElementById('Update').click();
+            myMap.geoObjects.add(result.geoObjects);
+        });
+
+        myMap.copyrights.add('© Иван Погиба');
+        console.log("Hello from yandex maps");
+        show_users(<%= current_user.followers.count %>);
     }
-}
 
-window.addEventListener('DOMContentLoaded', (event) => {
-    console.log('DOM fully loaded and parsed');
-});
+    function show_users(length) {
+        for (let i = 0; i < length; i++) {
+            latitude = document.getElementById('user-latitude-' + i).textContent;
+            longitude = document.getElementById('user-longitude-' + i).textContent;
+            email = document.getElementById('user-email-' + i).textContent;
+            updated_at = document.getElementById('user-updated_at-' + i).textContent;
+            avatar = document.getElementById('user-avatar-' + i);
+            id = document.getElementById('user-id-' + i).textContent;
+            myPlacemark = new ymaps.Placemark([parseFloat(latitude), parseFloat(longitude)], {
+                balloonContentHeader: '<a href = "/user/show_user_profile/' + id + '">' + email + '</a><br>',
+                balloonContentBody: avatar.innerHTML + '<br>' +
+                    '<b>Последний раз заходил в ' + updated_at + '</b> <br/>',
+                // hintContent: name
+            },
+                {
+                    iconLayout: 'default#image',
+                    iconImageHref: avatar.getElementsByTagName("img")[0].getAttribute("src"),
+                    iconImageSize: [40, 40],
+                    iconImageOffset: [-5, -38]
+                }
+            );
+
+            myMap.geoObjects.add(myPlacemark);
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        console.log('DOM fully loaded and parsed');
+    });
 
 </script>
 <div class="row">
     <div class="col-10" style="margin: 0; padding: 0;">
-      <div id="ymap" class="map"></div>
+        <div id="ymap" class="map"></div>
     </div>
 
     <div class="col-2" style="margin: 0; padding: 0;">
-     
-    <% unless current_user.avatar_url.nil?%>
-        <%= image_tag(current_user.avatar_url, size: "96x96") %>
-    <%else%>
-        <%= image_tag("no-photo.png", size:"96x96") %>
-    <% end %>
-    <%= form_with url: result_path do |f| %>
-        <div style="display: none">
-            <%= f.text_field :latitude, id: :latitude %>
-            <%= f.text_field :longitude, id: :longitude  %>
+
+        <div class="container py-1">
+            <div class="row">
+                <div class="card-body text-center">
+                    <% unless current_user.avatar_url.nil?%>
+                        <%= image_tag(current_user.avatar_url, size: "96x96" , style: "width: 150px;" ,
+                            class: "rounded-circle img-fluid" ) %>
+                            <%else%>
+                                <%= image_tag("no-photo.png", size:"96x96", style: "width: 150px;" ,
+                                    class: "rounded-circle img-fluid" ) %>
+                                    <% end %>
+                                        <h5 class="my-3">
+                                            <%= current_user.full_name %>
+                                        </h5>
+                                        <p class="text-muted mb-1">
+                                            <%= current_user.email %>
+                                        </p>
+                                        <p class="text-muted mb-4">
+                                            <%= current_user.updated_at %>
+                                        </p>
+                                        <div class="d-flex justify-content-center mb-2">
+                                            <%# <%= button_to "Edit profile", 'users/edit' class: 'btn btn-primary'%> 
+                                        </div>
+                </div>
+            </div>
         </div>
-        <%= f.submit class: "btn btn-primary" %>
-    <%end%>
-
-    <%= render partial: "maps/follow_request", locals: { user: current_user }%>
-    <hr />
-    <div class="prose lg:prose-xl">
-        <%= form_with url: find_nearest_path do |form| %>
-            <%= form.submit "Find nearest person to you", class: "btn btn-primary" %>
-        <% end %>
-    </div>
-
-    <div id='find-nearest-container'></div>
-
-    <hr />
-        <div class="prose lg:prose-xl">
-        <%= form_with url: find_nearest_friend_path do |form| %>
-            <%= form.submit "Find nearest friend to you", class: "btn btn-primary" %>
-        <% end %>
-    </div>
-
-    <div id='find-nearest-friend-container'></div>
-
-    <hr />
-       
-        <div class="prose lg:prose-xl">
-            <%= form_tag maps_path, method: :get, data: { turbo_frame: "search-results", turbo_action: "advance"} do |f| %>
-             <%= text_field_tag :query, nil, placeholder: "Search user", class: "input input-bordered w-full max-w-xs my-5" %>
-            <%= submit_tag "Search", class: "btn btn-primary" %>
-          <% end %>
-        </div>
-
-        <div class="bg-gray-100 p-8 col-span-5">
-                <%= turbo_frame_tag "search-results" do %>
-                <%= render partial: "maps/list", locals: { contacts: @users } %>
+        <hr>
+            <%= render partial: "maps/follow_request" , locals: { user: current_user }%>
+            <div class="row-1">
+                <div class="col-8 mx-auto">
+                    <%= form_with url: find_nearest_path do |form| %>
+                        <%= form.submit "Find nearest person to you" , class: "btn btn-primary" %>
+                    <% end %>
+                </div>
+                <div id='find-nearest-container'></div>
+                <hr>
+                <div class="col-8 mx-auto">
+                    <% if current_user.followers.count !=0%>
+                            <div class="prose lg:prose-xl">
+                                <%= form_with url: find_nearest_friend_path do |form| %>
+                                    <%= form.submit "Find nearest friend to you" , class: "btn btn-primary" %>
+                                <% end %>
+                            </div>
+                            <% end %>
+                </div>
+                <div id='find-nearest-friend-container'></div>
+            </div>
+        <hr>
+        <div class="row-2">
+            <div class="col-11 mx-auto">
+            <%= form_tag maps_path, method: :get, data: { turbo_frame: "search-results" , turbo_action: "advance" } do |f|%>
+                <div class="input-group">
+                    <%= text_field_tag :query, nil, placeholder: "Search user" , class: "form-control" %>
+                    <%= submit_tag "Search" , class: "btn btn btn-primary" %>
+                </div>
             <% end %>
+            </div>
+                    <%= turbo_frame_tag "search-results" do %>
+            <%= render partial: "maps/list" , locals: { contacts: @users } %>
+        <% end %>
         </div>
-
     </div>
-    </div>
-    <div id="users" style="display: none;">
-        <% current_user.followers.each_with_index do |user, index|%>
-            <p id="user-email-<%=index%>"><%= user.email %></p>
-            <p id="user-latitude-<%=index%>"><%= user.latitude%></p>
-            <p id="user-longitude-<%=index%>"><%= user.longitude%></p>
-            <p id="user-updated_at-<%=index%>"><%= user.updated_at%></p>
-            <p id="user-id-<%=index%>"><%= user.id%></p>
-            <%unless user.avatar_url.nil?%>
-                <p id="user-avatar-<%=index%>"><%= image_tag(user.avatar_url, size:"96x96")%></p>
+</div>
+<div id="users" style="display: none;">
+    <% current_user.followers.each_with_index do |user, index|%>
+        <p id="user-email-<%=index%>">
+            <%= user.email %>
+        </p>
+        <p id="user-latitude-<%=index%>">
+            <%= user.latitude%>
+        </p>
+        <p id="user-longitude-<%=index%>">
+            <%= user.longitude%>
+        </p>
+        <p id="user-updated_at-<%=index%>">
+            <%= user.updated_at%>
+        </p>
+        <p id="user-id-<%=index%>">
+            <%= user.id%>
+        </p>
+        <%unless user.avatar_url.nil?%>
+            <p id="user-avatar-<%=index%>">
+                <%= image_tag(user.avatar_url, size:"96x96")%>
+            </p>
             <%else%>
-                <p id="user-avatar-<%=index%>"><%= image_tag("no-photo.png", size:"96x96")%></p>
-            <%end%>
-        <%end%>
+                <p id="user-avatar-<%=index%>">
+                    <%= image_tag("no-photo.png", size:"96x96")%>
+                </p>
+                <%end%>
+                    <%end%>
+</div>
+</div>
+
+<%= form_with url: result_path do |f| %>
+    <div style="display: none">
+        <%= f.text_field :latitude, id: :latitude %>
+            <%= f.text_field :longitude, id: :longitude %>
+                <%= f.submit "Update geolocation" , id: "Update" , class: "btn btn-primary" %>
     </div>
-  </div>
+    <%end%>

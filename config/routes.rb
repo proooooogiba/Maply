@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+
   devise_scope :user do
     get 'users', to: 'devise/sessions#new'
   end
@@ -29,12 +29,10 @@ Rails.application.routes.draw do
   post '/find_nearest', to: 'maps#find_nearest', as: :find_nearest
   post '/find_nearest_friend', to: 'maps#find_nearest_friend', as: :find_nearest_friend
   post '/result', to: 'maps#result'
-  # get 'users/index', as: :user_index
   get 'users/show', as: :user_show
   get 'users/sign_out', as: :user_sign_out
   get 'users/sign_in', as: :user_sign_in
   get 'users/user_profile', as: :user_profile
 
-  # Defines the root path route ("/")
   resources :users, only: [:index]
 end

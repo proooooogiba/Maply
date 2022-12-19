@@ -1,14 +1,14 @@
-<table class="table table-zebra mt-0 w-full">
+<table class="table">
   <thead>
-    <tr class="w-full">
+    <tr>
       <th class="text-left">Name</th>
       <th class="text-left">Email</th>
-      <th class="text-left">Add</th>
+      <th class="text-left">Action</th>
     </tr>
   </thead>
   <tbody id="contacts-list" data-controller="contacts" data-action="">
   <% contacts.each do |contact| %>
-    <%= render partial: "maps/contact", locals: { contact: contact }  %>
+    <%= render partial: "maps/contact", locals: { contact: contact, button: "Action" }  %>
   <% end %>
   </tbody>
 </table>

@@ -50,6 +50,10 @@ html, body {
     height: 56px;
     padding: 10px;
 }
+
+.formBtn {
+    width: 100%;
+}
   
 #single_room {
     height: calc(100vh - 150px);

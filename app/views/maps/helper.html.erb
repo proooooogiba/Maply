@@ -1,0 +1,35 @@
+<div class="row">
+            <%= render partial: "maps/follow_request" , locals: { user: current_user }%>
+                <%= form_with url: find_nearest_path do |form| %>
+                    <div class="d-grid gap-2 col-2 mx-auto">
+                        <%= form.submit "Find nearest person to you" , class: "btn btn-primary" %>
+                    </div>
+                    <% end %>
+
+                        <div id='find-nearest-container'></div>
+
+                        <% if current_user.followers.count !=0%>
+                            <div class="prose lg:prose-xl">
+                                <%= form_with url: find_nearest_friend_path do |form| %>
+                                    <div class="d-grid gap-2 col-2 mx-auto">
+                                        <%= form.submit "Find nearest friend to you" , class: "btn btn-primary" %>
+                                    </div>
+                                    <% end %>
+                            </div>
+                            <div id='find-nearest-friend-container'></div>
+                            <hr />
+                            <% end %>
+        </div>
+
+        <%= form_tag maps_path, method: :get, data: { turbo_frame: "search-results" , turbo_action: "advance" } do |f|%>
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <%= text_field_tag :query, nil, placeholder: "Search user" , class: "input input-bordered " %>
+                    <%= submit_tag "Search" , class: "btn btn-primary" %>
+            </div>
+            <% end %>
+
+                <div class="bg-gray-100 p-8 col-span-5">
+                    <%= turbo_frame_tag "search-results" do %>
+                        <%= render partial: "maps/list" , locals: { contacts: @users } %>
+                            <% end %>
+                </div>
