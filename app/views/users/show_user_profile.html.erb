@@ -11,7 +11,11 @@
               <p class="text-muted mb-1"></p>
               <p class="text-muted mb-4"><%= t('maps.last_update', time: time_ago_in_words(current_user.updated_at)) %></p>
               <div class="d-flex justify-content-center mb-2">
-                <%= link_to "Chat", @user, class: 'btn btn-primary' %> 
+              <% if current_user.mutual_following_with?(@user)%>
+                <%= link_to "Chat", @user, class: 'btn btn-primary' %>
+              <% else %>
+                <%= render partial: "maps/followability_button", locals: { contact: @user }  %>
+              <% end %> 
               </div>
             </div>
           </div>
@@ -25,7 +29,7 @@
                 </li>
               <% end %>
               </ul>
-            </div><%=t(:friends_requests)%>
+            </div>
           </div>
         </div>
         <div class="col-lg-8">
@@ -73,13 +77,15 @@
                   <p class="mb-4"><span class="text-primary font-italic me-1"><%= t('maps.action') %></span></p>
                   <div class="d-flex flex-row-reverse">
                       <%= link_to 'Back', url_for(:back), class: "p-2 btn btn-primary active", style: "margin: 0 0 0 30px;" %>
+                      <% if current_user.mutual_following_with?(@user)%>  
                       <%= turbo_stream_from @user %>
                       <div id="<%= dom_id(@user) %>">
                         <%= render partial: "maps/followability_button", locals: { contact: @user }  %>
                       </div>
+                      <% end %>
                   </div>
                 </div>
-              </div>
+            </div>
         </div>
       </div>
     </div>

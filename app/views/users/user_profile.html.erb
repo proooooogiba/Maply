@@ -84,7 +84,7 @@
                   <div class="row">
                     <% current_user.follow_requests.each do |request| %>
                     <div class="col-9">
-                      <%= t(:want_to_be_your_friend, name: request.followerable.name) %>
+                      <%= t(:want_to_be_your_friend, name: request.followerable.full_name) %>
                     </div>
                     <div class="col-1">
                       <%= button_to t('maps.accept'), accept_path(request.followerable), class: 'btn btn-primary btn-sm' %>

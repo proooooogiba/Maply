@@ -2,9 +2,9 @@
 en:
   hello: "Hello"
   log_out: "Log out"
-  log_in: "Log in"
+  log_in: "Log In"
   sign_up: "Sign up"
-  sign_in: "Sign in"
+  sign_in: "Sign In"
   sign_in_with: "Sign in with %{provider}"
   sign_up_with: "Sign up with %{provider}"
   forgot_password: "Forgot your password?"

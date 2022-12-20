@@ -2,27 +2,20 @@
 
 class MapsController < ApplicationController
   before_action :authenticate_user!
+  include MapsHelper
 
   def index
     @users = User.all_except(current_user).search(params)
   end
 
   def find_nearest
-    @users = User.all_except(current_user)
-    current_user_location = [current_user.latitude, current_user.longitude]
-    @users = @users.sort_by do |user|
-      Geocoder::Calculations.distance_between(current_user_location, [user.latitude, user.longitude])
-    end
+    @users = sort_by_distance_all(current_user)
     @nearest_person = @users.first
   end
 
   def find_nearest_friend
     redirect_to root_path if current_user.followers.nil?
-    @users = current_user.followers
-    current_user_location = [current_user.latitude, current_user.longitude]
-    @users = @users.sort_by do |user|
-      Geocoder::Calculations.distance_between(current_user_location, [user.latitude, user.longitude])
-    end
+    @users = sort_by_distance_followers(current_user)
     @nearest_friend = @users.first
   end
 
