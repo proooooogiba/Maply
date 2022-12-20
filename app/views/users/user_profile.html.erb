@@ -10,9 +10,9 @@
                             class: "rounded-circle img-fluid" ) %>
               <h5 class="my-3"><%= @user.full_name %></h5>
               <p class="text-muted mb-1"></p>
-              <p class="text-muted mb-4">last time updated <%= time_ago_in_words(@user.updated_at) %> ago</p>
+              <p class="text-muted mb-4"><%= t('maps.last_update', time: time_ago_in_words(current_user.updated_at)) %></p>
               <div class="d-flex justify-content-center mb-2">
-                <%= link_to "Edit profile", user_edit_path, class: 'btn btn-primary' %> 
+                <%= link_to t(:edit_profile), user_edit_path, class: 'btn btn-primary' %> 
               </div>
             </div>
           </div>
@@ -35,7 +35,7 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-sm-3">
-                  <p class="mb-0">Full Name</p>
+                  <p class="mb-0"><%=t(:full_name)%></p>
                 </div>
                 <div class="col-sm-9">
                   <p class="text-muted mb-0"><%= @user.full_name %></p>
@@ -44,7 +44,7 @@
               <hr>
               <div class="row">
                 <div class="col-sm-3">
-                  <p class="mb-0">Email</p>
+                  <p class="mb-0"><%=t(:email)%></p>
                 </div>
                 <div class="col-sm-9">
                   <p class="text-muted mb-0"><%= @user.email %></p>
@@ -53,7 +53,7 @@
               <hr>
               <div class="row">
                 <div class="col-sm-3">
-                  <p class="mb-0">Since</p>
+                  <p class="mb-0"><%=t(:since)%></p>
                 </div>
                 <div class="col-sm-9">
                   <p class="text-muted mb-0"><%= time_ago_in_words(@user.created_at) %></p>
@@ -62,7 +62,7 @@
               <hr>
               <div class="row">
                 <div class="col-sm-3">
-                  <p class="mb-0">Location</p>
+                  <p class="mb-0"><%=t(:location)%></p>
                 </div>
                 <div class="col-sm-9">
                   <p class="text-muted mb-0"><%= Geocoder.search([@user.latitude.to_f, @user.longitude.to_f]).first.address %></p>
@@ -72,10 +72,10 @@
           </div>
               <div class="card mb-4 mb-md-0">
                 <div class="card-body">
-                  <p class="mb-4"><span class="text-primary font-italic me-1">Friends requests</span>
+                  <p class="mb-4"><span class="text-primary font-italic me-1"><%=t(:friends_requests)%></span>
                   </p>
                   <% if current_user.follow_requests.count == 0 %>
-                  <p class="mb-1" style="font-size: .77rem;">You haven't got any friends request</p>
+                  <p class="mb-1" style="font-size: .77rem;"><%= t(:not_have_any_requests)%></p>
                   <div class="progress rounded" style="height: 5px;">
                     <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100"
                       aria-valuemin="0" aria-valuemax="100"></div>
@@ -84,13 +84,13 @@
                   <div class="row">
                     <% current_user.follow_requests.each do |request| %>
                     <div class="col-9">
-                      <%= request.followerable.email %> wants to follow you
+                      <%= t(:want_to_be_your_friend, name: request.followerable.name) %>
                     </div>
                     <div class="col-1">
-                      <%= button_to "Accept", accept_path(request.followerable), class: 'btn btn-primary btn-sm' %>
+                      <%= button_to t('maps.accept'), accept_path(request.followerable), class: 'btn btn-primary btn-sm' %>
                     </div>
                     <div class="col-1">
-                      <%= button_to "Decline", decline_path(request.followerable), class: 'btn btn-danger btn-sm'  %>
+                      <%= button_to t('maps.decline'), decline_path(request.followerable), class: 'btn btn-danger btn-sm'  %>
                     </div>
                     <% end %>
                   <% end %>

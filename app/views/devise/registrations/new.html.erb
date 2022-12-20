@@ -6,12 +6,12 @@
           <div class="col-xl-4">
             <div class="row-1" style="margin: 0 0 30px 0;">
               <div class="card mb-4 mb-xl-0">
-                  <div class="card-header">Profile Picture</div>
+                  <div class="card-header"><%=t(:profile_picture)%></div>
                   <div class="card-body text-center">
                         <%= image_tag(resource.avatar_thumbnail, class: "img-account-profile rounded-circle mb-2") if resource.avatar.attached? %>
-                      <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+                      <div class="small font-italic text-muted mb-4"><%=t(:input_avatar)%></div>
                       <div class="field">
-                        <%= f.label :avatar, "Upload new image", class: "small mb-1" %><br />
+                        <%= f.label :avatar, class: "small mb-1" %><br />
                         <%= f.file_field :avatar, class: "btn btn-primary"%>
                       </div>
                   </div>
@@ -19,7 +19,7 @@
             </div>
             <div class="row-1">
             <div class="card mb-4 mb-xl-0">
-                  <div class="card-header">Sign up with</div>
+                  <div class="card-header"><%=t(:sign_up_with_account)%></div>
                   <div class="card-body text-center">
                       <%= render "devise/shared/links" %>
                   </div>
@@ -27,24 +27,21 @@
             </div>
           </div>
           <div class="col-xl-8">
-              <!-- Account details card-->
               <div class="card mb-4">
-                  <div class="card-header">Sign Up</div>
+                  <div class="card-header"><%= t(:sign_in) %></div>
                   <div class="card-body">
                           <div class="row gx-3 mb-3">
                               <div class="col-md-12">
                                 <div class="field">
                                   <%= f.label :full_name, class: "small mb-1" %><br />
-                                  <%= f.text_field :full_name, autofocus: true, class: "form-control", placeholder: "Enter your first name"%>
+                                  <%= f.text_field :full_name, autofocus: true, class: "form-control", placeholder: t(:enter_full_name)%>
                                 </div>
                               </div>
                           </div>
                             <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-                              <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+                              <div><%= t(:currently_waiting)%> <%= resource.unconfirmed_email %></div>
                             <% end %>
-                          <!-- Form Row        -->
                           <div class="row gx-3 mb-3">
-                              <!-- Form Group (organization name)-->
                               <div class="col-md-6">
                                   <%= f.label :email, "Email", class: "small mb-1" %> <br />
                                   <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>                                  
@@ -53,10 +50,10 @@
                           <div class="row gx-3 mb-3">
                             <div class="col-md-6">                          
                                 <%= f.label :password, class:"small mb-1" %> <br />
-                                <%= f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: "leave blank if you don't want to change it" %>
+                                <%= f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: t(:leave_blank_if_you_don_t_want_to_change_it) %>
                                   <% if @minimum_password_length %>
                                     <br />
-                                    <em><%= @minimum_password_length %> characters minimum</em>
+                                    <em><%= @minimum_password_length %> <%= t(:chatacters_minimum)%></em>
                                   <% end %>
                             </div>
                           </div>
@@ -70,7 +67,7 @@
                           </div>
                           <div class="row gx-3 mb-3">
                               <div class="col-md-10">
-                                <%= f.submit "Save changes", class: "btn btn-primary btn-lg", data: {turbo: false} %>
+                                <%= f.submit t(:save_changes), class: "btn btn-primary btn-lg", data: {turbo: false} %>
                               </div>
                           </div>                            
                   </div>

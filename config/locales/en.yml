@@ -1,33 +1,80 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   "true": "foo"
-#
-# To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  hello: "Hello"
+  log_out: "Log out"
+  log_in: "Log in"
+  sign_up: "Sign up"
+  sign_in: "Sign in"
+  sign_in_with: "Sign in with %{provider}"
+  sign_up_with: "Sign up with %{provider}"
+  forgot_password: "Forgot your password?"
+  password: "Password"
+  password_confirmation: "Confirm password"
+  current_password: "Current password"
+  remember_me: "Remember me"
+  resend_confirmation_instructions: "Didn't receive confirmation instructions?"
+  resend_unlock_instructions: "Didn't receive unlock instructions?"
+  confirmation: "Confirmation"
+  send_confirmation: "Resend confirmation instructions"
+  confirm_password: "Confirm password"
+  new_password: "New password"
+  change_password: "Change my password"
+  cancel_my_account: "Cancel my account"
+  current_password: "Current password"
+  update: "Update"
+  leave_blank_if_you_don_t_want_to_change_it: "Leave blank if you don't want to change it"
+  show_profile: "Show Profile"
+  edit_profile: "Edit Profile"
+  edit: "Edit"
+  back: "Back"
+  delete: "Delete"
+  friends: "Friends"
+  are_you_sure: "Are you sure?"
+  chat: "Chat"
+  welcome: "Welcome"
+  confirm_account: "You can confirm your account email through the link below:"
+  notify_you_email_changed: "We're contacting you to notify you that your email is being changed to"
+  notify_you_email_has_changed: "We're contacting you to notify you that your email has been changed to"
+  notify_you_password_changed: "We're contacting you to notify you that your password has been changed"
+  link_to_you_password: "Someone has requested a link to change your password. You can do this through the link below."
+  ignore_if_you_did_not_request: "If you didn't request this, please ignore this email. Your password won't change until you access the link above and create a new one."
+  change_my_password: "Change my password"
+  blocked_account: "Your account has been locked due to an excessive number of unsuccessful sign in attempts."
+  click_link_to_unlock: "Click the link below to unlock your account:"
+  chatacters_minimum: "characters minimum"
+  confirm_new_password: "Confirm new password"
+  change_my_password: "Change my password"
+  send_me_resst_instructions: "Send me reset password instructions"
+  profile_picture: "Profile picture"
+  account_details: "Account details"
+  input_avatar: "JPG or PNG no larger than 5 MB"
+  currently_waiting: "Currently waiting confirmation for:"
+  current_password_to_confirm: "we need your current password to confirm your changes"
+  save_changes: "Save changes"
+  sign_up_with_account: "Sign up with"
+  enter_full_name: "Enter your full name"
+  unlock_my_account: 'Unlock my account'
+  search: "Search"
+  location: "Location"
+  since: "Since"
+  full_name: "Full name"
+  friends_requests: "Friends requests"
+  not_have_any_requests: "You haven't got any friends request"
+  maps:
+    accept: "Accept"
+    cancel: "Cancel"
+    close: "Close"
+    decline: "Decline"
+    delete: "Delete"
+    edit: "Edit"
+    save: "Save"
+    name: "Name"
+    email: "Email"
+    action: "Action"
+    my_location: "My location"
+    last_update: "Last time updated %{time} ago"
+    want_to_be_your_friend: "%{name} wants to be your friend"
+    nearest_person: "Find nearest person to you"
+    nearest_firend: "Find nearest friend to you"
+    update_geolocation: "Update geolocation"
+    time_ago: "%{time} ago"

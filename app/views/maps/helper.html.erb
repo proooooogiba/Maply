@@ -2,7 +2,7 @@
             <%= render partial: "maps/follow_request" , locals: { user: current_user }%>
                 <%= form_with url: find_nearest_path do |form| %>
                     <div class="d-grid gap-2 col-2 mx-auto">
-                        <%= form.submit "Find nearest person to you" , class: "btn btn-primary" %>
+                        <%= form.submit t('maps.nearest_person'), class: "btn btn-primary" %>
                     </div>
                     <% end %>
 
@@ -12,7 +12,7 @@
                             <div class="prose lg:prose-xl">
                                 <%= form_with url: find_nearest_friend_path do |form| %>
                                     <div class="d-grid gap-2 col-2 mx-auto">
-                                        <%= form.submit "Find nearest friend to you" , class: "btn btn-primary" %>
+                                        <%= form.submit t('maps.nearest_friend'), class: "btn btn-primary" %>
                                     </div>
                                     <% end %>
                             </div>
@@ -24,7 +24,7 @@
         <%= form_tag maps_path, method: :get, data: { turbo_frame: "search-results" , turbo_action: "advance" } do |f|%>
             <div class="d-grid gap-2 col-6 mx-auto">
                 <%= text_field_tag :query, nil, placeholder: "Search user" , class: "input input-bordered " %>
-                    <%= submit_tag "Search" , class: "btn btn-primary" %>
+                    <%= submit_tag t('search'), class: "btn btn-primary" %>
             </div>
             <% end %>
 

@@ -6,7 +6,7 @@
         <div class="row align-items-center justify-content-center">
           <div class="col-md-7">
             <div class="mb-4 mx-auto">
-              <h3>Sign In</h3>
+              <h3><%= t(:sign_in)%></h3>
             </div>
             <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
               <div class="form-group first">
@@ -33,7 +33,7 @@
               </div>
 
                 <div class="actions">
-                  <%= f.submit "Log in", data: {turbo: false}, class: "btn btn-block btn-primary" %>
+                  <%= f.submit t(:log_in), data: {turbo: false}, class: "btn btn-block btn-primary" %>
                 </div>
               <% end %>
 

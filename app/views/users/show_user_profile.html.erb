@@ -9,7 +9,7 @@
                             class: "rounded-circle img-fluid" ) %>
               <h5 class="my-3"><%= @user.full_name %></h5>
               <p class="text-muted mb-1"></p>
-              <p class="text-muted mb-4">last time updated <%= time_ago_in_words(@user.updated_at) %> ago</p>
+              <p class="text-muted mb-4"><%= t('maps.last_update', time: time_ago_in_words(current_user.updated_at)) %></p>
               <div class="d-flex justify-content-center mb-2">
                 <%= link_to "Chat", @user, class: 'btn btn-primary' %> 
               </div>
@@ -25,7 +25,7 @@
                 </li>
               <% end %>
               </ul>
-            </div>Friends requests
+            </div><%=t(:friends_requests)%>
           </div>
         </div>
         <div class="col-lg-8">
@@ -33,7 +33,7 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-sm-3">
-                  <p class="mb-0">Full Name</p>
+                  <p class="mb-0"><%=t(:full_name)%></p>
                 </div>
                 <div class="col-sm-9">
                   <p class="text-muted mb-0"><%= @user.full_name %></p>
@@ -42,7 +42,7 @@
               <hr>
               <div class="row">
                 <div class="col-sm-3">
-                  <p class="mb-0">Email</p>
+                  <p class="mb-0"><%=t(:email)%></p>
                 </div>
                 <div class="col-sm-9">
                   <p class="text-muted mb-0"><%= @user.email %></p>
@@ -51,7 +51,7 @@
               <hr>
               <div class="row">
                 <div class="col-sm-3">
-                  <p class="mb-0">Since</p>
+                  <p class="mb-0"><%=t(:since)%></p>
                 </div>
                 <div class="col-sm-9">
                   <p class="text-muted mb-0"><%= time_ago_in_words(@user.created_at) %></p>
@@ -60,7 +60,7 @@
               <hr>
               <div class="row">
                 <div class="col-sm-3">
-                  <p class="mb-0">Location</p>
+                  <p class="mb-0"><%=t(:location)%></p>
                 </div>
                 <div class="col-sm-9">
                   <p class="text-muted mb-0"><%= Geocoder.search([@user.latitude.to_f, @user.longitude.to_f]).first.address %></p>
@@ -70,7 +70,7 @@
           </div>
               <div class="card mb-4 mb-md-0">
                 <div class="card-body">
-                  <p class="mb-4"><span class="text-primary font-italic me-1">Action</span></p>
+                  <p class="mb-4"><span class="text-primary font-italic me-1"><%= t('maps.action') %></span></p>
                   <div class="d-flex flex-row-reverse">
                       <%= link_to 'Back', url_for(:back), class: "p-2 btn btn-primary active", style: "margin: 0 0 0 30px;" %>
                       <%= turbo_stream_from @user %>

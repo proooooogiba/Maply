@@ -1,7 +1,7 @@
 <% if current_user.mutual_following_with?(contact) %>
-<%= button_to "Delete", unfollow_path(contact), class: "btn btn-danger formBtn" %>
+<%= button_to t('maps.delete'), unfollow_path(contact), class: "btn btn-danger formBtn" %>
 <% elsif current_user.sent_follow_request_to?(contact)%>
-  <%= button_to "Cancel", cancel_path(contact), class: "btn btn-outline-primary formBtn" %>
+  <%= button_to t('maps.cancel'), cancel_path(contact), class: "btn btn-outline-primary formBtn" %>
 <% else %>
-  <%= button_to "Add",  follow_path(contact), class: "btn btn-success formBtn" %>
+  <%= button_to t('maps.add'),  follow_path(contact), class: "btn btn-success formBtn" %>
 <% end %>

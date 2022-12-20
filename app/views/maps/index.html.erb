@@ -23,7 +23,7 @@
         }).then(function (result) {
             result.geoObjects.options.set('preset', 'islands#blueCircleIcon');
             result.geoObjects.get(0).properties.set({
-                balloonContentBody: 'Мое местоположение'
+                balloonContentBody: 'Moe местоположение'
             });
             document.getElementById('latitude').value = result.geoObjects.get(0).geometry.getCoordinates()[0];
             document.getElementById('longitude').value = result.geoObjects.get(0).geometry.getCoordinates()[1];
@@ -31,8 +31,7 @@
             myMap.geoObjects.add(result.geoObjects);
         });
 
-        myMap.copyrights.add('© Иван Погиба');
-        console.log("Hello from yandex maps");
+        myMap.copyrights.add('© 2022 Иван Погиба');
         show_users(<%= current_user.followers.count %>);
     }
 
@@ -86,22 +85,23 @@
                                             <%= current_user.email %>
                                         </p>
                                         <p class="text-muted mb-4">
-                                            last time updated <%= time_ago_in_words(current_user.updated_at) %> ago
+                                            <%= t('maps.last_update', time: time_ago_in_words(current_user.updated_at)) %>
                                         </p>
                 </div>
             </div>
         </div>
         <hr>
                     <% current_user.follow_requests.each do |request| %>
-                      <%= request.followerable.full_name %> wants to follow you
-                      <%= button_to "Accept", accept_path(request.followerable), class: 'btn btn-primary btn-sm' %>
-                      <%= button_to "Decline", decline_path(request.followerable), class: 'btn btn-danger btn-sm'  %>
+
+                      <%= t('maps.want_to_be_your_friend', name: request.followerable.full_name) %>
+                      <%= button_to t(:accept), accept_path(request.followerable), class: 'btn btn-primary btn-sm' %>
+                      <%= button_to t(:decline), decline_path(request.followerable), class: 'btn btn-danger btn-sm'  %>
                         <hr>
                     <% end %>
             <div class="row-2">
                 <div class="col-8 mx-auto">
                     <%= form_with url: find_nearest_path do |form| %>
-                        <%= form.submit "Find nearest person to you" , class: "btn btn-primary" %>
+                        <%= form.submit t('maps.nearest_person'), class: "btn btn-primary" %>
                     <% end %>
                 </div>
                 <div id='find-nearest-container'></div>
@@ -110,7 +110,7 @@
                     <% if current_user.followers.count !=0%>
                             <div class="prose lg:prose-xl">
                                 <%= form_with url: find_nearest_friend_path do |form| %>
-                                    <%= form.submit "Find nearest friend to you" , class: "btn btn-primary" %>
+                                    <%= form.submit t('maps.nearest_firend') , class: "btn btn-primary" %>
                                 <% end %>
                             </div>
                             <% end %>
@@ -123,7 +123,7 @@
             <%= form_tag maps_path, method: :get, data: { turbo_frame: "search-results" , turbo_action: "advance" } do |f|%>
                 <div class="input-group">
                     <%= text_field_tag :query, nil, placeholder: "Search user" , class: "form-control" %>
-                    <%= submit_tag "Search" , class: "btn btn btn-primary" %>
+                    <%= submit_tag t(:search) , class: "btn btn btn-primary" %>
                 </div>
             <% end %>
             </div>
@@ -160,6 +160,6 @@
     <div style="display: none">
         <%= f.text_field :latitude, id: :latitude %>
             <%= f.text_field :longitude, id: :longitude %>
-                <%= f.submit "Update geolocation" , id: "Update" , class: "btn btn-primary" %>
+                <%= f.submit t('maps.update_geolocation') , id: "Update" , class: "btn btn-primary" %>
     </div>
     <%end%>

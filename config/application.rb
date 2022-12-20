@@ -12,6 +12,9 @@ module Map
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
+    # здесь пока доступна только локаль ru
+    config.i18n.available_locales = %i[ru]
+    config.i18n.default_locale = :ru
 
     config.active_storage.variant_processor = :mini_magick
 

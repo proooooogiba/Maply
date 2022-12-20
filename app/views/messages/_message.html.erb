@@ -4,7 +4,7 @@
       <%= image_tag(message.user.chat_avatar, class:'chat_pfp') %>
       <div>
         <h6 class="name"> <%= message.user.email %></h6>
-        <p class="time"><%= time_ago_in_words(message.created_at) %> ago</p>
+        <p class="time"><%= t('maps.time_ago', time: time_ago_in_words(message.created_at)) %> </p>
       </div>
     </div>
     <%= message.body %>

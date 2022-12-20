@@ -12,25 +12,31 @@
       <ul class="navbar-nav">
           <% if current_user %>
         <li class="nav-item">
-          <%= link_to "Log out", destroy_user_session_path, class: 'nav-link', 'data-turbo-method': :delete %>
+          <%= link_to t(:log_out), destroy_user_session_path, class: 'nav-link', 'data-turbo-method': :delete %>
         </li>
         <li class="nav-item">
-          <%= link_to "Edit Profile", edit_user_registration_path, class: 'nav-link', 'data-turbo-method': :update %>
+          <%= link_to t(:edit_profile), edit_user_registration_path, class: 'nav-link', 'data-turbo-method': :update %>
         </li>
         <li class="nav-item">
-          <%= link_to "Show Profile", user_profile_path, class: 'nav-link', 'data-turbo-method': :user_profile %>
+          <%= link_to t(:show_profile), user_profile_path, class: 'nav-link', 'data-turbo-method': :user_profile %>
         </li>
         <li class="nav-item">
-          <%= link_to "Chat", rooms_path, class: 'nav-link', 'data-turbo-method': :show %>
+          <%= link_to t(:chat), rooms_path, class: 'nav-link', 'data-turbo-method': :show %>
         </li>
           <% else %>
         <li class="nav-item">
-          <%= link_to "Sign Up", new_user_registration_path, class: 'nav-link' %>
+          <%= link_to t(:sign_up), new_user_registration_path, class: 'nav-link' %>
         </li>
         <li class="nav-item">
-          <%= link_to "Log In", new_user_session_path, class: 'nav-link' %>
+          <%= link_to t(:log_in), new_user_session_path, class: 'nav-link' %>
         </li>
         <% end %>
+        <li class="nav-item">
+          <%= link_to 'English', root_path(locale: :en), class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Русский', root_path(locale: :ru), class: 'nav-link' %>
+        </li>
       </ul>
     </div>
   </div>

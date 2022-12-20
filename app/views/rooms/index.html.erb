@@ -1,6 +1,6 @@
 <div id="chatroom_container" class="row bg-dark text-light">
   <div id="side_panel" class="col-md-4 col-sm-4">
-  <h4> Friends </h4>
+  <h4> <%= t(:friends)%> </h4>
     <% turbo_stream_from "users"%>
     <div id="users">
         <%=render @users%>

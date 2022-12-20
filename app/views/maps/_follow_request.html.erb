@@ -1,5 +1,5 @@
 <% user.follow_requests.each do |request| %>
     <%= request.followerable.email %> wants to be your friend
-    <%= button_to "Accept", accept_path(request.followerable) %>
-    <%= button_to "Decline", decline_path(request.followerable) %>
+    <%= button_to t('maps.accept'), accept_path(request.followerable) %>
+    <%= button_to t('maps.decline'), decline_path(request.followerable) %>
 <% end %>
