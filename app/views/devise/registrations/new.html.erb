@@ -1,79 +1,35 @@
+<h2>Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
-  <div class="container-xl px-4 mt-4">
-      <hr class="mt-0 mb-4">
-      <div class="row">
-          <div class="col-xl-4">
-            <div class="row-1" style="margin: 0 0 30px 0;">
-              <div class="card mb-4 mb-xl-0">
-                  <div class="card-header"><%=t(:profile_picture)%></div>
-                  <div class="card-body text-center">
-                        <%= image_tag(resource.avatar_thumbnail, class: "img-account-profile rounded-circle mb-2") if resource.avatar.attached? %>
-                      <div class="small font-italic text-muted mb-4"><%=t(:input_avatar)%></div>
-                      <div class="field">
-                        <%= f.label :avatar, class: "small mb-1" %><br />
-                        <%= f.file_field :avatar, class: "btn btn-primary"%>
-                      </div>
-                  </div>
-              </div>
-            </div>
-            <div class="row-1">
-            <div class="card mb-4 mb-xl-0">
-                  <div class="card-header"><%=t(:sign_up_with_account)%></div>
-                  <div class="card-body text-center">
-                      <%= render "devise/shared/links" %>
-                  </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-8">
-              <div class="card mb-4">
-                  <div class="card-header"><%= t(:sign_in) %></div>
-                  <div class="card-body">
-                          <div class="row gx-3 mb-3">
-                              <div class="col-md-12">
-                                <div class="field">
-                                  <%= f.label :full_name, class: "small mb-1" %><br />
-                                  <%= f.text_field :full_name, autofocus: true, class: "form-control", placeholder: t(:enter_full_name)%>
-                                </div>
-                              </div>
-                          </div>
-                            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-                              <div><%= t(:currently_waiting)%> <%= resource.unconfirmed_email %></div>
-                            <% end %>
-                          <div class="row gx-3 mb-3">
-                              <div class="col-md-6">
-                                  <%= f.label :email, "Email", class: "small mb-1" %> <br />
-                                  <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>                                  
-                              </div>
-                          </div>
-                          <div class="row gx-3 mb-3">
-                            <div class="col-md-6">                          
-                                <%= f.label :password, class:"small mb-1" %> <br />
-                                <%= f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: t(:leave_blank_if_you_don_t_want_to_change_it) %>
-                                  <% if @minimum_password_length %>
-                                    <br />
-                                    <em><%= @minimum_password_length %> <%= t(:chatacters_minimum)%></em>
-                                  <% end %>
-                            </div>
-                          </div>
-                          <div class="row gx-3 mb-3">
-                              <div class="col-md-12">
-                                <div class="field">
-                                  <%= f.label :password_confirmation, class: "small mb-1" %><br />
-                                  <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
-                                </div>
-                              </div>
-                          </div>
-                          <div class="row gx-3 mb-3">
-                              <div class="col-md-10">
-                                <%= f.submit t(:log_in), id: "this-log-in", class: "btn btn-primary btn-lg", data: {turbo: false} %>
-                              </div>
-                          </div>                            
-                  </div>
-              </div>
-          </div>
-      </div>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :full_name %><br />
+    <%= f.text_field :full_name, autofocus: true, autocomplete: "full_name" %>
+  </div>
+
+
+  <div class="field">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Sign up", data: {turbo: false} %>
   </div>
 <% end %>
+
+<%= render "devise/shared/links" %>
