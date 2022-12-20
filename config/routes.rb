@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   get 'maps/index', as: :maps
   post '/find_nearest', to: 'maps#find_nearest', as: :find_nearest
   post '/find_nearest_friend', to: 'maps#find_nearest_friend', as: :find_nearest_friend
-  post '/result', to: 'maps#result'
+  post '/result', to: 'maps#result', as: :result
   get 'users/show', as: :user_show
   get 'users/sign_out', as: :user_sign_out
   get 'users/sign_in', as: :user_sign_in

@@ -18,7 +18,7 @@
               </div>
               <div class="form-group last mb-3">
                 <div class="field">
-                  <%= f.label :password %><br />
+                  <%= f.label :password%><br />
                   <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
                 </div>               
               </div>
@@ -33,7 +33,7 @@
               </div>
 
                 <div class="actions">
-                  <%= f.submit t(:log_in), data: {turbo: false}, class: "btn btn-block btn-primary" %>
+                  <%= f.submit t(:log_in), data: {turbo: false}, value: "Log in", class: "btn btn-block btn-primary" %>
                 </div>
               <% end %>
 
