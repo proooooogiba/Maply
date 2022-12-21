@@ -31,10 +31,7 @@ class MapsController < ApplicationController
   private
 
   def authenticate_user!
-    if user_signed_in?
-      puts "User #{current_user} is authenticated"
-    else
-      puts "User isn't authenticated"
+    unless user_signed_in?
       redirect_to new_user_session_path
     end
   end

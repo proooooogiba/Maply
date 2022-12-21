@@ -16,6 +16,23 @@ class User < ApplicationRecord
   after_commit :add_default_avatar, on: %i[create update]
   followability
 
+  validates :email, presence: {message: "не может быть пустым"}, uniqueness: {message: "такой аккаунт уже зарегистрирован" }
+  # validates_numericality_of :latitude,
+  #                           greater_than_or_equal_to: -90,
+  #                           message: 'ширина должна быть в диапазоне от -90 до 90'
+                            
+  # validates_numericality_of :latitude,
+  #                           greater_than_or_equal_to: 90,
+  #                           message: 'ширина должна быть в диапазоне от -90 до 90'
+  
+  # validates_numericality_of :longitude,
+  #                           greater_than_or_equal_to: -180,
+  #                           message: 'ширина должна быть в диапазоне от -180 до 180'
+                            
+  # validates_numericality_of :latitude,
+  #                           greater_than_or_equal_to: 180,
+  #                           message: 'ширина должна быть в диапазоне от -180 до 180'
+  
   def unfollow(user)
     followerable_relationships.where(followable_id: user.id).destroy_all
   end

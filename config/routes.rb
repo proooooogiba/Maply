@@ -12,10 +12,6 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
 
-  scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
-    resources :feedbacks
-  end
-
   devise_scope :user do
     get 'users', to: 'devise/sessions#new'
   end
@@ -37,6 +33,7 @@ Rails.application.routes.draw do
   post '/result', to: 'maps#result', as: :result
   get 'users/show', as: :user_show
   get 'users/sign_out', as: :user_sign_out
+  # post '/users/sign_out'
   get 'users/sign_in', as: :user_sign_in
   get 'users/user_profile', as: :user_profile
   get 'users/edit', as: :user_edit

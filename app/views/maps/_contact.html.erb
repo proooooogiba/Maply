@@ -1,9 +1,11 @@
 <tr id="<%= dom_id(contact) %>" data-stream-enter-class="animate-item-in" data-stream-exit-class="animate-item-out">
   <td><%= contact.full_name %></td>
   <td><%= contact.email %></td>
+  <td>
   <% if button == 'Action'%>
-    <td> <%= render partial: "maps/followability_button", locals: { contact: contact }  %> </td>
+     <%= render partial: "maps/followability_button", locals: { contact: contact }  %> 
   <% elsif button == 'Chat' %>
-    <td> <%= render partial: "maps/chat_button", locals: { contact: contact } %> </td> 
+    <%= render partial: "maps/chat_button", locals: { contact: contact } %>
   <% end %>
+  </td>
 </tr>

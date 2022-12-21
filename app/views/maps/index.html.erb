@@ -61,17 +61,13 @@
         }
     }
 
-    window.addEventListener('DOMContentLoaded', (event) => {
-        console.log('DOM fully loaded and parsed');
-    });
-
 </script>
 <div class="row">
-    <div class="col-10" style="margin: 0; padding: 0;">
+    <div class="col-9" style="margin: 0; padding: 0;">
         <div id="ymap" class="map"></div>
     </div>
 
-    <div class="col-2" style="margin: 0; padding: 0;">
+    <div class="col-3" style="margin: 0; padding: 0;">
 
         <div class="container py-1">
             <div class="row">
@@ -92,46 +88,49 @@
         </div>
         <hr>
                     <% current_user.follow_requests.each do |request| %>
-
                       <%= t('maps.want_to_be_your_friend', name: request.followerable.full_name) %>
-                      <%= button_to t(:accept), accept_path(request.followerable), class: 'btn btn-primary btn-sm' %>
-                      <%= button_to t(:decline), decline_path(request.followerable), class: 'btn btn-danger btn-sm'  %>
-                        <hr>
+                      <div class="mt-2">
+                      <div class="d-inline-block">
+                        <%= button_to t(:accept), accept_path(request.followerable), class: 'btn btn-primary btn-sm' %>
+                      </div>
+                    <div class="d-inline-block ms-2"><%= button_to t(:decline), decline_path(request.followerable), class: 'btn btn-danger btn-sm'  %></div>
+                        </div>
+                    <hr>
                     <% end %>
-            <div class="row-2">
-                <div class="col-8 mx-auto">
-                    <%= form_with url: find_nearest_path do |form| %>
-                        <%= form.submit t('maps.nearest_person'), class: "btn btn-primary" %>
-                    <% end %>
-                </div>
+
+            <%# <div class="container"> %>
+            <div class="container text-center py-1">
+                <%= form_with url: find_nearest_path do |form| %>
+                    <%= form.submit t('maps.nearest_person'), class: "btn btn-primary" %>
+                <% end %>
                 <div id='find-nearest-container'></div>
+            </div>
                 <hr>
-                <div class="col-8 mx-auto">
+            <div class="text-center">
                     <% if current_user.followers.count !=0%>
-                            <div class="prose lg:prose-xl">
+                            <div class="prose lg:prose-xl mb-4">
                                 <%= form_with url: find_nearest_friend_path do |form| %>
                                     <%= form.submit t('maps.nearest_firend') , class: "btn btn-primary" %>
                                 <% end %>
                             </div>
                             <% end %>
-                </div>
                 <div id='find-nearest-friend-container'></div>
-            </div>
-        <hr>
-        <div class="row-2">
-            <div class="col-11 mx-auto">
+        <%# </div> %>
+        <div class="container">
             <%= form_tag maps_path, method: :get, data: { turbo_frame: "search-results" , turbo_action: "advance" } do |f|%>
                 <div class="input-group">
                     <%= text_field_tag :query, nil, placeholder: "Search user" , class: "form-control" %>
                     <%= submit_tag t(:search) , class: "btn btn btn-primary" %>
                 </div>
             <% end %>
-            </div>
-                    <%= turbo_frame_tag "search-results" do %>
+            <%= turbo_frame_tag "search-results" do %>
             <%= render partial: "maps/list" , locals: { contacts: @users } %>
-        <% end %>
+            <% end %>
+            </div>
         </div>
     </div>
+
+</div>
 </div>
 <div id="users" style="display: none;">
     <% current_user.followers.each_with_index do |user, index|%>

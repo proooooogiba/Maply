@@ -33,14 +33,13 @@
               </div>
 
                 <div class="actions">
-                  <%= f.submit t(:sign_in), data: {turbo: false}, value: "Sign In", class: "btn btn-block btn-primary" %>
+                  <%= f.submit t(:sign_in), data: {turbo: false}, class: "btn btn-block btn-primary" %>
                 </div>
               <% end %>
 
               <span class="d-block text-center my-4 text-muted">&mdash; or &mdash;</span>
 
               <%= render "devise/shared/links" %>
-            </form>
           </div>
         </div>
       </div>

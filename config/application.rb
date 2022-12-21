@@ -14,7 +14,7 @@ module Map
     config.load_defaults 7.0
     # здесь пока доступна только локаль ru
     config.i18n.available_locales = %i[en ru]
-    config.i18n.default_locale = :ru
+    config.i18n.default_locale = :en
 
     config.active_storage.variant_processor = :mini_magick
 

@@ -112,6 +112,8 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.5.0)
     erubi (1.11.0)
+    faker (3.0.0)
+      i18n (>= 1.8.11, < 2)
     faraday (2.7.2)
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
@@ -212,6 +214,10 @@ GEM
       activesupport (= 7.0.4)
       bundler (>= 1.15.0)
       railties (= 7.0.4)
+    rails-controller-testing (1.0.5)
+      actionpack (>= 5.0.1.rc1)
+      actionview (>= 5.0.1.rc1)
+      activesupport (>= 5.0.1.rc1)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
@@ -261,6 +267,8 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    shoulda-matchers (5.3.0)
+      activesupport (>= 5.2.0)
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
@@ -310,6 +318,7 @@ DEPENDENCIES
   capybara
   debug
   devise
+  faker
   followability!
   geocoder
   image_processing (~> 1.2)
@@ -322,10 +331,12 @@ DEPENDENCIES
   omniauth-vkontakte
   puma (~> 5.0)
   rails (~> 7.0.4)
+  rails-controller-testing
   rails-i18n
   redis (~> 4.0)
   rspec-rails (~> 6.0.0)
   selenium-webdriver
+  shoulda-matchers
   sprockets-rails
   sqlite3 (~> 1.4)
   stimulus-rails

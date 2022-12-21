@@ -73,6 +73,9 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'webdrivers'
+  gem 'rails-controller-testing'
+  gem 'faker'
+  gem 'shoulda-matchers'
 end
 
 gem 'followability', github: 'nejdetkadir/followability', branch: 'main'
@@ -83,4 +86,3 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection', '~> 1.0'
 gem 'omniauth-vkontakte'
 gem 'rails-i18n'
-# gem 'rspec-rails'

@@ -59,6 +59,9 @@ ru:
   full_name: "Полное имя"
   friends_requests: "Запросы в друзья"
   not_have_any_requests: "У вас нет запросов на добавление в друзья"
+  accept: "Принять"
+  cancel: "Отменить"
+  decline: "Отклонить"
   maps:
     accept: "Принять"
     cancel: "Отменить"
@@ -73,7 +76,7 @@ ru:
     my_location: "Мое местоположение"
     last_update: "последний раз был %{time} назад"
     want_to_be_your_friend: "%{name} хочет добавить вас в друзья"
-    nearest_person: "Ближайшая к вам человек"
+    nearest_person: "Ближайший к вам человек"
     nearest_firend: "Ближайший к вам друг"
     update_geolocation: "Обновить геолокацию"
     time_ago: "%{time} назад"
