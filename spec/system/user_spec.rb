@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'rails_helper'
 
 RSpec.describe Devise, type: :system do
-  let(:email_user) {"kochka_pochka@mail.ru"}
-  let(:password_user) {"rijqjr;3rewmnrwea"}
-  let(:full_name) {"Ivan Smallgiba"}
+  let(:email_user) { 'kochka_pochka@mail.ru' }
+  let(:password_user) { 'rijqjr;3rewmnrwea' }
+  let(:full_name) { 'Ivan Smallgiba' }
 
-  describe 'User sign up' do  
+  describe 'User sign up' do
     scenario 'sign up without params' do
       visit new_user_registration_path
       click_button 'Sign up'
@@ -33,11 +35,11 @@ RSpec.describe Devise, type: :system do
       visit new_user_registration_path
       fill_in 'email-input', with: email_user, wait: 10
       fill_in 'Password', with: password_user
-      fill_in 'Password confirmation', with: password_user + '1'
+      fill_in 'Password confirmation', with: "#{password_user}1"
       click_button 'Sign up'
       expect(page).to have_content("Password confirmation doesn't match Password\n")
     end
-    
+
     scenario 'sign up with correct params' do
       visit new_user_registration_path
       fill_in 'email-input', with: email_user, wait: 10
@@ -48,7 +50,7 @@ RSpec.describe Devise, type: :system do
       expect(page).to have_content("Welcome! You have signed up successfully.\n")
     end
   end
-  
+
   describe 'User Sign In' do
     before :each do
       visit new_user_registration_path
@@ -59,7 +61,7 @@ RSpec.describe Devise, type: :system do
       click_button 'Sign up'
       find('#log_out').click
     end
-  
+
     scenario 'sign in without params' do
       click_button 'Sign In'
       expect(page).to have_content("Invalid Email or password.\n")
@@ -69,7 +71,7 @@ RSpec.describe Devise, type: :system do
       fill_in 'email-input', with: email_user, wait: 10
       fill_in 'password-input', with: password_user, wait: 10
       click_button 'Sign In'
-      expect(page).to have_content("Signed in successfully.\n") 
+      expect(page).to have_content("Signed in successfully.\n")
     end
   end
 
@@ -94,9 +96,13 @@ RSpec.describe Devise, type: :system do
   end
 
   describe 'Interaction between of two users' do
-    let(:user_one) {User.create(email: "kochka_pochka@mail.ru", password: "rijqjr;3rewmnrwea", full_name: "Zatochka Pochka" )}
-    let(:user_two) {User.create(email: "ivan_sobachka_tachka@gmail.ru", password: "Nn;kgwJKBmnvsdBHJfs", full_name: "Ivan Smallgiba" )}
-    let(:message) {"Hello!"}
+    let(:user_one) do
+      User.create(email: 'kochka_pochka@mail.ru', password: 'rijqjr;3rewmnrwea', full_name: 'Zatochka Pochka')
+    end
+    let(:user_two) do
+      User.create(email: 'ivan_sobachka_tachka@gmail.ru', password: 'Nn;kgwJKBmnvsdBHJfs', full_name: 'Ivan Smallgiba')
+    end
+    let(:message) { 'Hello!' }
 
     def user_sign_in(user)
       sleep(5)
@@ -107,7 +113,7 @@ RSpec.describe Devise, type: :system do
     end
 
     def reload_page
-      visit current_path 
+      visit current_path
     end
 
     before :each do
@@ -232,7 +238,7 @@ RSpec.describe Devise, type: :system do
       click_on 'Accept'
       reload_page
       sleep(5)
-      user_three = User.create(email: "boba_biba@gmail.ru", password: "Nn;kgwJKBmnvsdBHJfs", full_name: "Egor Biggiba" )
+      user_three = User.create(email: 'boba_biba@gmail.ru', password: 'Nn;kgwJKBmnvsdBHJfs', full_name: 'Egor Biggiba')
       sleep(5)
       find('#log_out').click
       user_sign_in(user_three)

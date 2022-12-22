@@ -43,19 +43,19 @@ module Users
 
     # If you have extra params to permit, append them to the sanitizer.
     def configure_sign_up_params
-      devise_parameter_sanitizer.permit(:sign_up, keys: [:avatar, :full_name])
+      devise_parameter_sanitizer.permit(:sign_up, keys: %i[avatar full_name])
     end
 
     # If you have extra params to permit, append them to the sanitizer.
     def configure_account_update_params
-      devise_parameter_sanitizer.permit(:account_update, keys: [:avatar, :full_name])
+      devise_parameter_sanitizer.permit(:account_update, keys: %i[avatar full_name])
     end
 
     protected
 
     def update_resource(resource, params)
-      if current_user.provider == "google_oauth2" || current_user.provider == "github"
-        params.delete("current_password")
+      if current_user.provider == 'google_oauth2' || current_user.provider == 'github'
+        params.delete('current_password')
         resource.update_without_password(params)
       else
         resource.update_with_password(params)
