@@ -91,14 +91,13 @@
                       <%= t('maps.want_to_be_your_friend', name: request.followerable.full_name) %>
                       <div class="mt-2">
                       <div class="d-inline-block">
-                        <%= button_to t(:accept), accept_path(request.followerable), class: 'btn btn-primary btn-sm' %>
+                        <%= button_to t(:accept), accept_path(request.followerable), id: "accept_id", class: 'btn btn-primary btn-sm' %>
                       </div>
-                    <div class="d-inline-block ms-2"><%= button_to t(:decline), decline_path(request.followerable), class: 'btn btn-danger btn-sm'  %></div>
+                    <div class="d-inline-block ms-2"><%= button_to t(:decline), decline_path(request.followerable), class: 'btn btn-danger btn-sm' %></div>
                         </div>
                     <hr>
                     <% end %>
 
-            <%# <div class="container"> %>
             <div class="container text-center py-1">
                 <%= form_with url: find_nearest_path do |form| %>
                     <%= form.submit t('maps.nearest_person'), class: "btn btn-primary" %>
@@ -115,12 +114,11 @@
                             </div>
                             <% end %>
                 <div id='find-nearest-friend-container'></div>
-        <%# </div> %>
         <div class="container">
             <%= form_tag maps_path, method: :get, data: { turbo_frame: "search-results" , turbo_action: "advance" } do |f|%>
                 <div class="input-group">
                     <%= text_field_tag :query, nil, placeholder: "Search user" , class: "form-control" %>
-                    <%= submit_tag t(:search) , class: "btn btn btn-primary" %>
+                    <%= submit_tag t(:search) , class: "btn btn btn-primary", id: "search_id" %>
                 </div>
             <% end %>
             <%= turbo_frame_tag "search-results" do %>

@@ -24,7 +24,7 @@
               <ul class="list-group list-group-flush rounded-3">
               <% @user.followers.each do |friend| %>
                 <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                  <p class="mb-0"> <%= link_to friend.full_name, "/user/show_user_profile/" + friend.id.to_s %></p>
+                  <p class="mb-0"> <%= link_to friend.full_name, "/user/show_user_profile/" + friend.id.to_s, id: "#{dom_id(friend)}" %></p>
                   <span class="badge bg-primary rounded-pill"><%= friend.followers.count %></span>
                 </li>
               <% end %>

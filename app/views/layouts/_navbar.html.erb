@@ -1,9 +1,9 @@
 <nav class="navbar navbar-expand-lg bg-light"> 
   <div class="container-fluid">
   <% if current_user %>
-    <%= link_to "Maply", maps_path, class: 'navbar-brand'%>
+    <%= link_to "Maply", maps_path, class: 'navbar-brand', id: 'root'%>
   <% else %>
-    <%= link_to "Maply", new_user_session_path, class: 'navbar-brand'%>
+    <%= link_to "Maply", new_user_session_path, class: 'navbar-brand', id: 'sign_in_lnk'%>
   <% end %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -12,23 +12,23 @@
       <ul class="navbar-nav">
           <% if current_user %>
         <li class="nav-item">
-          <%= link_to t(:log_out), destroy_user_session_path, class: 'nav-link', 'data-turbo-method': :delete %>
+          <%= link_to t(:log_out), destroy_user_session_path, class: 'nav-link', id: 'log_out', 'data-turbo-method': :delete %>
         </li>
         <li class="nav-item">
-          <%= link_to t(:edit_profile), edit_user_registration_path, class: 'nav-link', 'data-turbo-method': :update %>
+          <%= link_to t(:edit_profile), edit_user_registration_path, class: 'nav-link', id: 'edit_profile', 'data-turbo-method': :update %>
         </li>
         <li class="nav-item">
-          <%= link_to t(:show_profile), user_profile_path, class: 'nav-link', 'data-turbo-method': :user_profile %>
+          <%= link_to t(:show_profile), user_profile_path, class: 'nav-link', id: 'show_profile', 'data-turbo-method': :user_profile %>
         </li>
         <li class="nav-item">
-          <%= link_to t(:chat), rooms_path, class: 'nav-link', 'data-turbo-method': :show %>
+          <%= link_to t(:chat), rooms_path, class: 'nav-link', id: 'chat', 'data-turbo-method': :show %>
         </li>
           <% else %>
         <li class="nav-item">
-          <%= link_to t(:sign_up), new_user_registration_path, class: 'nav-link' %>
+          <%= link_to t(:sign_up), new_user_registration_path, id: 'sign_up', class: 'nav-link' %>
         </li>
         <li class="nav-item">
-          <%= link_to t(:log_in), new_user_session_path, class: 'nav-link' %>
+          <%= link_to t(:log_in), new_user_session_path, id: 'log_in', class: 'nav-link' %>
         </li>
         <% end %>
       </ul>

@@ -12,14 +12,14 @@
               <div class="form-group first">
                 <div class="field">
                   <%= f.label :email, "Email" %><br />
-                  <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+                  <%= f.email_field :email, id: "email-input", autocomplete: "email", class: "form-control" %>
                 </div>
 
               </div>
               <div class="form-group last mb-3">
                 <div class="field">
                   <%= f.label :password, "Password", id: "my-password-user"%><br />
-                  <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+                  <%= f.password_field :password, id: "password-input", autocomplete: "current-password", class: "form-control" %>
                 </div>               
               </div>
               

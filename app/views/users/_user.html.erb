@@ -7,5 +7,5 @@
   <div>
     <%= link_to image_tag(user.chat_avatar, class: 'chat_pfp'), user %>
   </div>
-  <%= link_to user.full_name, user, class:'ms-2 me-auto username', data: {turbo: "false"}%>
+  <%= link_to user.full_name, user, class:'ms-2 me-auto username', data: {turbo: "false"}, id: "#{dom_id(user)}" %>
 </li>
